@@ -3,7 +3,7 @@
 body {
     background-color: #f2f2f2;
     font-family: Arial, sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     color: black;
 }
 
@@ -12,3 +12,7 @@ body {
     padding: 20px;
 }
 
+.letra-chica {
+    font-size: 12px;
+    font-style: italic;
+}
