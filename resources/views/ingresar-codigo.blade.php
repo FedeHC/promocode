@@ -15,6 +15,7 @@
                 <button type="submit" class="btn btn-success">Enviar código</button>
                 <button type="reset" class="btn btn-default">Borrar todo</button>
             </form>
+            <br>
         </div>
     </div>
 </div>
