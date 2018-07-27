@@ -12,9 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('inicio',
-        ['hola' => 'hola gente!',
-            'mensaje' => '¿todo bien?']);
+    return view('generar-codigo');
+});
+
+Route::get('/mostrar', function () {
+    return view('mostrar-codigo');
 });
 
 Auth::routes();
