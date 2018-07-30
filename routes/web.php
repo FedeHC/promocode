@@ -11,14 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('generar-codigo');
-});
-
-Route::get('/mostrar', function () {
-    return view('ingresar-codigo');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+
