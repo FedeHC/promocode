@@ -1,7 +1,8 @@
 /* estilos.css */
 
 body {
-    background-color: #f2f2f2;
+    background-color: #000000;
+    background-image: url("cielo.jpg");
     font-family: Arial, sans-serif;
     font-size: 18px;
     color: black;
@@ -12,7 +13,7 @@ h1 {
 }
 
 .fondo-color {
-    background-color: white;
+    background-color: #c3e5f8;
     padding: 20px;
 }
 
@@ -25,3 +26,18 @@ h1 {
     font-size: 15px;
     font-weight: lighter;
 }
+
+.nav-link {
+    color: #199be4;
+}
+
+.navbar{
+    background-color: #c3e5f8;
+}
+
+.container{
+    background-color:#84a3b4;
+}
+ .btn{
+    background-color: grey;
+ }

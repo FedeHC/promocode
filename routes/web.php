@@ -13,11 +13,13 @@
 
 Auth::routes();
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'HomeController@index');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/generar', 'GenerarCodigoController@index');
 
 Route::get('/usar', 'UsarCodigoController@index');
+
+Route::get('/data', 'DataBaseController@index');
 

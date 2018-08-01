@@ -9,9 +9,19 @@
                 <p class="letra-chica-2">Presioná para generar un nuevo código válido:</p>
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">Generar código</button>
+                    <?php 
+                        // Aca llamo a la funcion que me crea un promocode en la db
+                        Promocodes::create($amount = 1, $reward = null,  $data = [], $expires_in = null);
+                        $codigo = DB::table('promocodes')->get();
+                        $id = count($codigo);
+                        $codigoGenerado = DB::table('promocodes')->find($id);
+                        echo "El codigo generado es: $codigoGenerado->code"; 
+                    ?>
                 </div>
             </form>
             <br>
         </div>
-    </div>
+    </div>     
+
+
 @endsection
