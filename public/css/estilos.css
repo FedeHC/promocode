@@ -1,27 +1,2 @@
 /* estilos.css */
 
-body {
-    background-color: #f2f2f2;
-    font-family: Arial, sans-serif;
-    font-size: 18px;
-    color: black;
-}
-
-h1 {
-    margin-bottom: 20px;
-}
-
-.fondo-color {
-    background-color: white;
-    padding: 20px;
-}
-
-.letra-chica-1 {
-    font-size: 12px;
-    font-style: italic;
-}
-
-.letra-chica-2 {
-    font-size: 15px;
-    font-weight: lighter;
-}

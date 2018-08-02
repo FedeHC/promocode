@@ -11,13 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('generar-codigo');
-});
-
-Route::get('/mostrar', function () {
-    return view('ingresar-codigo');
-});
 
 Auth::routes();
 
