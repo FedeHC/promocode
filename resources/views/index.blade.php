@@ -6,7 +6,10 @@
     <title>Probando</title>
 </head>
 <body>
-    <h1>1,2,3 probando:</h1>
+    <h1>Welcome
+        @if( @guest)
+            {{ "Stranger" }}
+        @endif !</h1>
     <p>Acá tiene que ir todo el blade de bienvenida y también la<br>pantalla principal cuando un user esté logueado.</p>
 </body>
 </html>
