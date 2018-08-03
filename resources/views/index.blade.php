@@ -7,8 +7,10 @@
 </head>
 <body>
     <h1>Welcome
-        @if( @guest)
+        @guest
             {{ "Stranger" }}
+        @else
+            {{ @Auth::user()->name }}
         @endif !</h1>
     <p>Acá tiene que ir todo el blade de bienvenida y también la<br>pantalla principal cuando un user esté logueado.</p>
 </body>
