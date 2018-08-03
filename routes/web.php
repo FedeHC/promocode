@@ -14,3 +14,6 @@
 Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
+Route::match(['get', 'post'], '/pcode/add','PromocodeController@view_agregar');
+Route::match(['get', 'post'], '/pcode/check','PromocodeController@view_chequear');
+Route::get('/pcodes', 'PromocodeController@view_db');
