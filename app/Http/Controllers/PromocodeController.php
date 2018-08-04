@@ -18,6 +18,6 @@ class PromocodeController extends Controller
 
     public function view_db()
     {
-        return view('/pcodes');
+        return view('pcodes');
     }
 }
