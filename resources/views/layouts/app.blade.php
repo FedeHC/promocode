@@ -84,5 +84,9 @@
             @yield('content')
         </main>
     </div>
+    <!--  Pie de página -->
+    <div class="footer" >
+        <p> Goferitos 2018</p>
+    </div>
 </body>
 </html>
