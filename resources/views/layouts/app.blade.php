@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Titulo -->
-    <title>{{ config('app.name', 'Promocode') }}</title>
+    <title>Promocodes</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
