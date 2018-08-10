@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Gabievi\Promocodes\Promocodes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+//use App\Http\Controllers\Controller;
 
 class PromocodeController extends Controller
 {
@@ -31,6 +32,8 @@ class PromocodeController extends Controller
 
     public function view_db()
     {
-        return view('pcodes');
+        $datos = DB::table('promocodes')->pluck('code');
+        return view('pcodes', ['la_base_de_datos' => $datos]);
+
     }
 }
