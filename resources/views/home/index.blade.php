@@ -9,16 +9,21 @@
                     {{ "Stranger" }}
                 @else
                     @php
-                        echo @Auth::user()->name."!"
+                        echo " back ".@Auth::user()->name."!"
                     @endphp
                 @endif
             </h1>
-            <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator,
-                etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
-            <p>
-                <a href="#" class="btn btn-primary my-2">Main call to action</a>
-                <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-            </p>
+            @guest
+                <p class="lead text-muted"> Register or Log in if you want to get a Promocodes!</p>
+                <p class="lead text-muted"> Go ahead, it's free! </p>
+                <a href="{{ route('login') }}" class="btn btn-outline-success btn-lg">Log in</a>
+                <a href="{{ route('register') }}" class="btn btn-outline-success btn-lg">Register</a>
+            @else
+                <p class="lead text-muted"> We are happy to have you back! Have a good stay on our page.</p>
+                <a href="{{ route('addcode') }}" class="btn btn-outline-success btn-lg">New Code</a>
+                <a href="{{ route('checkcode') }}" class="btn btn-outline-success btn-lg">Check Code</a>
+                <a href="{{ route('codelist') }}" class="btn btn-outline-success btn-lg">Code List</a>
+            @endif
         </div>
     </section>
 @endsection
