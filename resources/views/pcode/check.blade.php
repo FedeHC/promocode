@@ -6,7 +6,25 @@
     <title>Probando</title>
 </head>
 <body>
-    <h1>1,2,3 probando CHECK:</h1>
-    <p>Acá va todo lo de chequear código.</p>
+    <h1>Ingrese el código para descubrir su premio</h1>
+    	<div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    
+                    <div class="card-body">
+                            <div class="form-group row mb-0">
+                                <div class="col-sm offset-md">
+                                    <form method="post">
+                                    	<div class="form-group">
+										    <input type="text" name="codigo" />
+										</div>
+										<button type="submit" class="btn btn-default">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 </html>

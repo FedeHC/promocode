@@ -7,14 +7,17 @@
     <title>Probando</title>
 </head>
 <body>
-    <h1>1,2,3 probando PCODES:</h1>
-    <p>Acá va lo de DB.</p>
 
-	<ul>
-		@foreach ($la_base_de_datos as $code)
-			<li>{{ $code }}</li>
-		@endforeach
-	</ul>
+<p> Base de datos </p>
+<div class="card" style="width: 18rem;">
+    <ul class="list-group list-group-flush">
+        @foreach ($la_base_de_datos as $code)
+            <li class="list-group-item">{{ $code }}</li>
+        @endforeach
+    </ul>
+
+</div>
+	
 
 </body>
 </html>

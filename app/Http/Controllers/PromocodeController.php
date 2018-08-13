@@ -14,7 +14,7 @@ class PromocodeController extends Controller
 
         if ($request ->isMethod('post')) {
             $pcode  = new Promocodes();
-            $pcode->createDisposable($amount = 1, $reward = null, $data = [], $expires_in = null);
+            $pcode->create($amount = 1, $reward = null, $data = [], $expires_in = null);
             $code = DB::table('promocodes')->orderBy('id', 'desc')->first()->code;
             return view('pcode.add', compact( "code"));
         }else{
@@ -25,8 +25,9 @@ class PromocodeController extends Controller
 
     }
 
-    public function view_chequear()
+    public function view_chequear(Request $request)
     {
+        
         return view('pcode.check');
     }
 

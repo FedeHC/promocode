@@ -25,10 +25,10 @@ class CreatePromocodesTable extends Migration
         });
 
         Schema::create(config('promocodes.relation_table', 'promocode_user'), function (Blueprint $table) {
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->default(0);
             $table->unsignedInteger('promocode_id');
             
-            $table->timestamp('used_at');
+            $table->timestamp('used_at')->default(2018-08-13 18:08:39);
 
             $table->primary(['user_id', 'promocode_id']);
 

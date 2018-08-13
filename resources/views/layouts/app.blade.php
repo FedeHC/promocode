@@ -79,7 +79,7 @@
 
                                         {{ __('Chequear código') }}
                                     </a>
-                                    <a class="dropdown-item" >
+                                    <a class="dropdown-item" href="/pcodes" >
 
                                         {{ __('Mostrar todos') }}
                                     </a>
