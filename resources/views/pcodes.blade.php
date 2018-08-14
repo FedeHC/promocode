@@ -1,23 +1,37 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Probando</title>
-</head>
-<body>
+@extends('layouts.app')
 
-<p> Base de datos </p>
-<div class="card" style="width: 18rem;">
-    <ul class="list-group list-group-flush">
-        @foreach ($la_base_de_datos as $code)
-            <li class="list-group-item">{{ $code }}</li>
-        @endforeach
-    </ul>
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
 
-</div>
-	
+                    <div class="card-header">
+                        {{ __('Mostrando todos los códigos:') }}
+                    </div>
 
-</body>
-</html>
+                    <div class="card-body">
+                        <div class="form-group row mb-0">
+                            <div class="col-sm offset-md">
+
+                                <ul class="list-group list-group-flush">
+                                    @foreach ($la_base_de_datos as $code)
+                                        <li class="list-group-item">{{ $code }}</li>
+                                    @endforeach
+                                </ul>
+
+                                <br>
+                                <div class="text-center">
+                                    <a class="btn btn-outline-secondary justify-content-center" href="{{ url('/') }}">
+                                    {{ __('Volver')}}</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

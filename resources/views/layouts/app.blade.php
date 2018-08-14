@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Titulo -->
-    <title>Promocodes</title>
+    <title>PromoCODE</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -21,94 +21,93 @@
     <!-- Estilos -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/estilos.css') }}" rel="stylesheet">
-
 </head>
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
+<div id="app">
+    <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <div class="container">
 
-                <!-- El logo copado de nuestra app -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('imagenes/logo.png') }}" width="100"/>
-                </a>
+            <!-- El logo copado de nuestra app ;) -->
+            <a class="navbar-brand" href="{{ url('/') }}">
+                <img src="{{ asset('imagenes/logo.png') }}" width="100"/>
+            </a>
 
-                <!-- El botón (si la ventana o navegador se achica) -->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            <!-- El botón (si la ventana o navegador se achica) -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="{{ __('Toggle navigation') }}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Lado izq. del Navbar -->
-                    <ul class="navbar-nav mr-auto"></ul>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                    <!-- Lado der. del Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                <!-- Lado izq. del Navbar -->
+                <ul class="navbar-nav mr-auto"></ul>
 
-                        <!--  Como invitado... -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
-                            </li>
+                <!-- Lado der. del Navbar -->
+                <ul class="navbar-nav ml-auto">
 
-                        <!--  Como logueado... -->
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                    <!--  Como invitado... -->
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
+                        </li>
+
+                        <!--  Como usuario... -->
+                    @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                <a class="dropdown-item" href="/pcode/add">
+                                    {{ __('Agregar código') }}
                                 </a>
 
+                                <a class="dropdown-item" href="/pcode/check">
+                                    {{ __('Chequear código') }}
+                                </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/pcodes">
+                                    {{ __('Mostrar todos') }}
+                                </a>
 
-                                    {{--<a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>--}}
+                                    {{ __('Cerrar sesión') }}
+                                </a>
 
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    @endguest
 
-                                    <a class="dropdown-item" href="/pcode/add">
-
-                                        {{ __('Agregar código') }}
-                                    </a>
-                                    <a class="dropdown-item" href="/pcode/check">
-
-                                        {{ __('Chequear código') }}
-                                    </a>
-                                    <a class="dropdown-item" href="/pcodes" >
-
-                                        {{ __('Mostrar todos') }}
-                                    </a>
-
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-
-                    </ul>
-                </div>
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
-    <!--  Pie de página -->
-    <div class="footer" >
-        <p> Goferitos 2018</p>
-    </div>
+    <main class="py-4">
+        @yield('content')
+    </main>
+</div> <!-- Fin de App -->
+
+<!--  FOOTER -->
+<div class="footer">
+    <br>
+    <p> Goferitos 2018</p>
+</div>
+
 </body>
 </html>
