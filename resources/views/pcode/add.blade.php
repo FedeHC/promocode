@@ -17,17 +17,25 @@
                                 <form method="post">
                                     @csrf
 
+                                    @if (isset($code))
+                                        <div class="form-inline">
+                                            <label for="code">Tu nuevo PromoCODE: </label>
+                                            <input type="text" class="form-control" name="code" value="{{ $code }}"
+                                                   readonly>
+                                        </div>
+                                        <br>
+                                    @endif
+
                                     <button type="submit" class="btn btn-success">
                                         {{ __("Generar PromoCODE") }}
                                     </button>
+                                </form>
 
-                                    @if (isset($code))
-                                        {{ $code }}
-                                    @endif
-
+                                <br><br>
+                                <div class="text-center">
                                     <a class="btn btn-outline-secondary justify-content-center" href="{{ url('/') }}">
                                         {{ __('Volver')}}</a>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>

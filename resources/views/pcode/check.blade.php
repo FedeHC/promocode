@@ -17,17 +17,22 @@
                                 <form method="post">
                                     @csrf
 
-                                    <div class="form-group">
-                                        <input type="text" name="code"/>
-                                    </div>
-
-                                    <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" name="code" class="form-control"
+                                               value="@if(isset($code)){{ $code }}@endif"/>
                                         <button type="submit" class="btn btn-success">Chequear!</button>
-
-                                        <a class="btn btn-outline-secondary justify-content-center" href="{{ url('/') }}">
-                                            {{ __('Volver')}}</a>
                                     </div>
+
+                                    @if(isset($mensaje))
+                                        <label><b><i>{{ $mensaje }}</i></b></label>
+                                    @endif
                                 </form>
+
+                                <br><br>
+                                <div class="text-center">
+                                    <a class="btn btn-outline-secondary justify-content-center" href="{{ url('/') }}">
+                                        {{ __('Volver')}}</a>
+                                </div>
 
                             </div>
                         </div>

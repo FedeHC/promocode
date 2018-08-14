@@ -14,18 +14,36 @@
                         <div class="form-group row mb-0">
                             <div class="col-sm offset-md">
 
-                                <ul class="list-group list-group-flush">
-                                    @foreach ($la_base_de_datos as $code)
-                                        <li class="list-group-item">{{ $code }}</li>
-                                    @endforeach
-                                </ul>
+                                <table class="table table-striped table-borderless table-sm">
+                                    <thead>
+                                    <tr class="table-secondary">
+                                        <th scope="col">#</th>
+                                        <th scope="col">Código</th>
+                                        <th scope="col">Vence</th>
+                                    </tr>
+                                    </thead>
 
-                                <br>
+                                    <tbody>
+                                    @foreach ($la_base_de_datos as $fila)
+                                        <tr>
+                                            <td>{{ $fila->id }}</td>
+                                            <td><b>{{ $fila->code }}</b></td>
+
+                                            @if($fila->expires_at == "")
+                                                <td><i>Sin vencimiento</i></td>
+                                            @else
+                                                <td>{{ $fila->expires_at }}</td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+
                                 <div class="text-center">
                                     <a class="btn btn-outline-secondary justify-content-center" href="{{ url('/') }}">
-                                    {{ __('Volver')}}</a>
+                                        {{ __('Volver')}}</a>
                                 </div>
-
+                                <br><br>
                             </div>
                         </div>
                     </div>
