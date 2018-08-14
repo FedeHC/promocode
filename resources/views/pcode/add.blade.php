@@ -13,13 +13,20 @@
                     <div class="card-body">
                         <div class="form-group row mb-0">
                             <div class="col-sm offset-md">
-
+                            <h4>Select the desired discount. By default the value is 20%</h4>
                                 <form method="post">
                                     @csrf
-
+                                    <br>
+                                    <input type="radio" name="descuento" value="20desc" checked>20% de descuento
+                                    
+                                    <input type="radio" name="descuento" value="30desc">30% de descuento
+                                    
+                                    <input type="radio" name="descuento" value="40desc">40% de descuento
+                                    <br>
+                                   
                                     @if (isset($code))
                                         <div class="form-inline">
-                                            <label for="code">Tu nuevo PromoCODE: </label>
+                                            <label for="code">Tu nuevo PromoCODE:  </label>  
                                             <input type="text" class="form-control" name="code" value="{{ $code }}"
                                                    readonly>
                                         </div>

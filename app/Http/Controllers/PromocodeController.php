@@ -14,7 +14,19 @@ class PromocodeController extends Controller
     {
         // POST:
         if ($request->isMethod('post')) {
-            Promocodes::create($amount = 1, $reward = null, $data = [], $expires_in = 30);
+            $descuento = "20";
+            if ($_POST['descuento'] == "20desc" ) {
+                $descuento = "20";
+            }
+            elseif ($_POST['descuento'] == "30desc") {
+                $descuento = "30";
+            }
+            else
+            {
+                $descuento = "40";
+            }
+
+            Promocodes::create($amount = 1, $reward = $descuento, $data = [], $expires_in = 30);
             $code = DB::table('promocodes')->orderBy('id', 'desc')->first()->code;
 
             return view('pcode.add', compact("code"));
