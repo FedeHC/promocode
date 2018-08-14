@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+<nav class="navbar navbar-expand-md bg-secondary navbar-dark">
     <div class="container">
 
         {{-- El logo copado de nuestra app ;) --}}

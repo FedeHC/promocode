@@ -7,7 +7,7 @@
                 <div class="card">
 
                     <div class="card-header">
-                        {{ __('Chequear código:') }}
+                        {{ __('Check code:') }}
                     </div>
 
                     <div class="card-body">
@@ -20,7 +20,7 @@
                                     <div class="input-group">
                                         <input type="text" name="code" class="form-control"
                                                value="@if(isset($code)){{ $code }}@endif"/>
-                                        <button type="submit" class="btn btn-success">Chequear!</button>
+                                        <button type="submit" class="btn btn-primary">Chequear!</button>
                                     </div>
 
                                     @if(isset($mensaje))
@@ -31,7 +31,7 @@
                                 <br><br>
                                 <div class="text-center">
                                     <a class="btn btn-outline-secondary justify-content-center" href="{{ url('/') }}">
-                                        {{ __('Volver')}}</a>
+                                        {{ __('Home')}}</a>
                                 </div>
 
                             </div>

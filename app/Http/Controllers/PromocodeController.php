@@ -14,19 +14,19 @@ class PromocodeController extends Controller
     {
         // POST:
         if ($request->isMethod('post')) {
-            $descuento = "20";
-            if ($_POST['descuento'] == "20desc" ) {
-                $descuento = "20";
+            $discount;
+            if ($_POST['discount'] == "20disc" ) {
+                $discount = "20";
             }
-            elseif ($_POST['descuento'] == "30desc") {
-                $descuento = "30";
+            elseif ($_POST['discount'] == "30disc") {
+                $discount = "30";
             }
             else
             {
-                $descuento = "40";
+                $discount = "40";
             }
 
-            Promocodes::create($amount = 1, $reward = $descuento, $data = [], $expires_in = 30);
+            Promocodes::create($amount = 1, $reward = $discount, $data = [], $expires_in = 30);
             $code = DB::table('promocodes')->orderBy('id', 'desc')->first()->code;
 
             return view('pcode.add', compact("code"));
@@ -46,12 +46,12 @@ class PromocodeController extends Controller
             try {
                 $pcode = Promocodes::check($code);
                 if ($pcode != false)
-                    $mensaje = "¡Este código es válido!";
+                    $mensaje = "This code is valid!";
                 else
-                    $mensaje = "Este código ya no tiene validez";
+                    $mensaje = "This code is no longer valid";
 
             } catch (InvalidPromocodeException $e) {
-                $mensaje = "Este código no existe";
+                $mensaje = "This code does not exist";
             }
 
             return view('pcode.check', compact("code", "mensaje"));

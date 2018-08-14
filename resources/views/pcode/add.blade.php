@@ -7,7 +7,7 @@
                 <div class="card">
 
                     <div class="card-header">
-                        {{ __('Agregar código:') }}
+                        {{ __('Generate code:') }}
                     </div>
 
                     <div class="card-body">
@@ -17,31 +17,31 @@
                                 <form method="post">
                                     @csrf
                                     <br>
-                                    <input type="radio" name="descuento" value="20desc" checked>20% de descuento
+                                    <input type="radio" name="discount" value="20disc" checked>20% Off
                                     
-                                    <input type="radio" name="descuento" value="30desc">30% de descuento
+                                    <input type="radio" name="discount" value="30disc">30% Off
                                     
-                                    <input type="radio" name="descuento" value="40desc">40% de descuento
+                                    <input type="radio" name="discount" value="40disc">40% Off
                                     <br>
                                    
                                     @if (isset($code))
                                         <div class="form-inline">
-                                            <label for="code">Tu nuevo PromoCODE:  </label>  
+                                            <label for="code">Your promocode is :  </label>  
                                             <input type="text" class="form-control" name="code" value="{{ $code }}"
                                                    readonly>
                                         </div>
                                         <br>
                                     @endif
 
-                                    <button type="submit" class="btn btn-success">
-                                        {{ __("Generar PromoCODE") }}
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __("Generate promocode") }}
                                     </button>
                                 </form>
 
                                 <br><br>
                                 <div class="text-center">
                                     <a class="btn btn-outline-secondary justify-content-center" href="{{ url('/') }}">
-                                        {{ __('Volver')}}</a>
+                                        {{ __('Home')}}</a>
                                 </div>
                             </div>
                         </div>

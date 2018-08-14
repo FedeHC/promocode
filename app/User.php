@@ -5,11 +5,13 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Gabievi\Promocodes\Traits\Rewardable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 
 class User extends Authenticatable
 {
     use Notifiable, Rewardable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.

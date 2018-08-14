@@ -9,8 +9,9 @@
     {{-- CSRF Token --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {{-- Título (Nota: no olvidarse de poner 'PromoCODE' en archivo '.env' --}}
-    <title>PromoCODE</title>
+    {{-- Título (Nota: no olvidarse de poner 'PromoCODE' en archivo '.env'
+          mmmmmmmmmmm...... --}}
+    <title>Promocode</title>
 
     {{-- Scripts --}}
     <script src="{{ asset('js/app.js') }}" defer></script>
