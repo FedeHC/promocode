@@ -27,8 +27,17 @@ class PromocodeController extends Controller
 
     public function view_chequear(Request $request)
     {
+
+        if ($request ->isMethod('post')) {
+            $code = $request->post['code'];
+            
+            return view('pcode.check', compact( "code"));;
+        }else{
+            return view('pcode.check');
+        }
         
-        return view('pcode.check');
+
+        return view('pcode.check', compact('code') );
     }
 
     public function view_db()

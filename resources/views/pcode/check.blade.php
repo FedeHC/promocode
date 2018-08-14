@@ -15,11 +15,18 @@
                             <div class="form-group row mb-0">
                                 <div class="col-sm offset-md">
                                     <form method="post">
+                                    {{ csrf_field() }}
                                     	<div class="form-group">
-										    <input type="text" name="codigo" />
+										    <input type="text" name="code" />
 										</div>
 										<button type="submit" class="btn btn-default">Submit</button>
+
+										
                                     </form>
+                                    <div class="col-12 text-center">
+						                <a class="btn btn-outline-secondary justify-content-center" href="{{ url('/') }}">
+						                    {{ __('Volver')}}</a>
+						            </div>
                                 </div>
                             </div>
                     </div>
