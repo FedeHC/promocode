@@ -14,8 +14,9 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="/css/home.css" rel="stylesheet">
-    <link href="/css/footer.css" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/estilos.css') }}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -30,6 +31,11 @@
     </div>
 </main>
 
-@include('layouts.footer')
+<!--  FOOTER -->
+<div class="footer">
+    <br>
+    <p> Goferitos 2018</p>
+</div>
+
 </body>
 </html>
