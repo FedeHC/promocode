@@ -9,16 +9,11 @@
     {{-- CSRF Token --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {{-- Título (Nota: no olvidarse de poner 'PromoCODE' en archivo '.env'
-          mmmmmmmmmmm...... --}}
-    <title>Promocode</title>
+    {{-- Título (Nota: no olvidarse de poner 'PromoCODE' en archivo '.env' --}}
+    <title>{{ config('app.name', 'PromoCODE') }} @yield('title')</title>
 
     {{-- Scripts --}}
     <script src="{{ asset('js/app.js') }}" defer></script>
-
-    {{-- Fonts usadas (Nota: habría que descargarlas en una carpeta local --}}
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
     {{-- Estilos --}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">

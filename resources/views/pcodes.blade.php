@@ -1,13 +1,16 @@
 @extends('layouts.app')
 
+@section('title', ' - Code list')
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
+                <br><br>
 
+                <div class="card">
                     <div class="card-header">
-                        {{ __('Mostrando todos los códigos:') }}
+                        {{ __('Code list:') }}
                     </div>
 
                     <div class="card-body">
@@ -18,8 +21,8 @@
                                     <thead>
                                     <tr class="table-secondary">
                                         <th scope="col">#</th>
-                                        <th scope="col">Código</th>
-                                        <th scope="col">Vence</th>
+                                        <th scope="col">Code</th>
+                                        <th scope="col">Expires at</th>
                                     </tr>
                                     </thead>
 
@@ -38,17 +41,19 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-
-                                <div class="text-center">
-                                    <a class="btn btn-outline-secondary justify-content-center" href="{{ url('/') }}">
-                                        {{ __('Volver')}}</a>
-                                </div>
-                                <br><br>
+                                <br>
                             </div>
                         </div>
                     </div>
-
                 </div>
+
+                <br><br>
+
+                <div class="text-center">
+                    <a class="btn btn-outline-secondary justify-content-center" href="{{ url('/') }}">
+                        {{ __('Back')}}</a>
+                </div>
+
             </div>
         </div>
     </div>

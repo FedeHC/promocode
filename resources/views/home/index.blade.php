@@ -1,8 +1,13 @@
 @extends('layouts.home')
 
-@section('contain')
+@section('title', ' - Home')
+
+@section('content')
+    <br><br>
+
     <section class="jumbotron text-center">
         <div class="container">
+
             <h1 class="jumbotron-heading">
                 Welcome
                 @guest
@@ -21,9 +26,9 @@
                 <a href="{{ route('register') }}" class="btn btn-outline-success btn-lg">Register</a>
             @else
                 <p class="lead text-muted"> We are happy to have you back! Have a good stay on our page.</p>
-                <a href="{{ route('addcode') }}" class="btn btn-primary btn-lg">New Code</a>
-                <a href="{{ route('checkcode') }}" class="btn btn-primary btn-lg">Check Code</a>
-                <a href="{{ route('codelist') }}" class="btn btn-primary btn-lg">Code List</a>
+                <a href="{{ route('addcode') }}" class="btn btn-outline-primary btn-lg">New Code</a>
+                <a href="{{ route('checkcode') }}" class="btn btn-outline-primary btn-lg">Check Code</a>
+                <a href="{{ route('codelist') }}" class="btn btn-outline-primary btn-lg">Code List</a>
             @endif
         </div>
     </section>

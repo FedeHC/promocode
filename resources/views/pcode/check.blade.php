@@ -1,11 +1,14 @@
 @extends('layouts.app')
 
+@section('title', ' - Check code')
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
+                <br><br>
 
+                <div class="card">
                     <div class="card-header">
                         {{ __('Check code:') }}
                     </div>
@@ -20,7 +23,7 @@
                                     <div class="input-group">
                                         <input type="text" name="code" class="form-control"
                                                value="@if(isset($code)){{ $code }}@endif"/>
-                                        <button type="submit" class="btn btn-primary">Chequear!</button>
+                                        <button type="submit" class="btn btn-primary">Check!</button>
                                     </div>
 
                                     @if(isset($mensaje))
@@ -28,17 +31,20 @@
                                     @endif
                                 </form>
 
-                                <br><br>
-                                <div class="text-center">
-                                    <a class="btn btn-outline-secondary justify-content-center" href="{{ url('/') }}">
-                                        {{ __('Home')}}</a>
-                                </div>
+                                <br>
 
                             </div>
                         </div>
                     </div>
-
                 </div>
+
+                <br><br>
+
+                <div class="text-center">
+                    <a class="btn btn-outline-secondary justify-content-center" href="{{ url('/') }}">
+                        {{ __('Back')}}</a>
+                </div>
+
             </div>
         </div>
     </div>
