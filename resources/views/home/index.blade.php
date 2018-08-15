@@ -29,6 +29,7 @@
                 <a href="{{ route('addcode') }}" class="btn btn-outline-primary btn-lg">New Code</a>
                 <a href="{{ route('checkcode') }}" class="btn btn-outline-primary btn-lg">Check Code</a>
                 <a href="{{ route('codelist') }}" class="btn btn-outline-primary btn-lg">Code List</a>
+                <a href="{{ route('shopcart') }}" class="btn btn-outline-primary btn-lg">Shop Cart</a>
             @endif
         </div>
     </section>

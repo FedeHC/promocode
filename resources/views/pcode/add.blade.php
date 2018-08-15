@@ -21,9 +21,9 @@
                                     @csrf
                                     <br>
                                     <input type="radio" name="discount" value="20disc" checked>20% Off
-                                    
+
                                     <input type="radio" name="discount" value="30disc">30% Off
-                                    
+
                                     <input type="radio" name="discount" value="40disc">40% Off
                                     <br>
                                    
