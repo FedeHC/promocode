@@ -73,8 +73,25 @@ class PromocodeController extends Controller
     }
 
 
-    public function view_shop_cart()
+    public function view_shop_cart(Request $request)
     {
-        return view('shop.cart');
+        // POST:
+        if ($request->isMethod('post')) {
+            if(isset($request->agregar)) {
+                $producto = $request->products;
+                $cantidad = $request->quantity;
+
+                return view('shop.cart', compact('producto', 'cantidad'));
+            }
+            else {
+                $borrar = true;
+
+                return view('shop.cart', compact('borrar'));
+            }
+        }
+
+        // GET:
+        else
+            return view('shop.cart');
     }
 }

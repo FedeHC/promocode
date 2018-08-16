@@ -9,54 +9,82 @@
                 <br><br>
 
                 <div class="card">
-                    <div class="card-header">
-                        {{ __('Shop cart:') }}
-                    </div>
+                    <div class="card-header">{{ __('Shop cart:') }}</div>
 
                     <div class="card-body">
 
+                        {{-- FORM --}}
                         <form method="post">
                             @csrf
-                            {{-- PRODUCTOS --}}
+
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="products">Choose the products you want:</label>
 
-                                        <select name="products" class="custom-select">
-                                            <option value="1">Cool T-Shirts</option>
-                                            <option value="2">Awesome Jeans</option>
-                                            <option value="3">Incredible Shoes</option>
-                                            <option value="4">Fabulous Cups</option>
-                                            <option value="5">Marvelous Lenses</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                {{-- CANTIDAD Y BOTON AGREGAR--}}
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label for="quantity">Quantity:</label>
-
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" name="quantity" step="1" min="1" max="100" />
-                                            <input type="submit" class="form-control" value="add!" />
+                                    {{-- FILA CONTROLES --}}
+                                    <div class="col-sm-3">
+                                        <label>Choose what you want:</label>
+                                        <div class="form-group">
+                                            <select name="products" class="custom-select" autofocus>
+                                                <option selected disabled>- Products -</option>
+                                                <option value="Cool T-Shirts">Cool T-Shirts</option>
+                                                <option value="Awesome Jeans">Awesome Jeans</option>
+                                                <option value="Incredible Shoes">Incredible Shoes</option>
+                                            </select>
                                         </div>
                                     </div>
+
+                                    {{--  X  --}}
+                                    <div class="col-sm-1 text-center align-self-sm-center">
+                                        <br>
+                                        <p><b>x</b></p>
+                                    </div>
+
+                                    {{-- CANTIDAD Y BOTON AGREGAR--}}
+                                    <div class="col-sm-2">
+                                        <label>Quantity:</label>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" name="quantity" value="1" step="1" min="1" max="100" />
+                                                <input type="submit" name="agregar" class="btn btn-outline-primary" value="add!" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                {{--  =  --}}
+                                <div class="col-sm-1 text-center align-self-sm-center">
+                                    <br>
+                                    <p><b>=</b></p>
                                 </div>
 
                                 {{-- LISTA --}}
-                                <div class="col-sm-5 offset-sm-1">
-                                    <div class="form-group">
-                                        <label class="">Your current list:</label>
+                                <div class="col-sm-5">
+                                    <label>Your current list:</label>
+                                    <div class="list-group">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <a href="#" class="list-group-item list-group-item-action disabled">
+                                                    @if(isset($producto) && isset($cantidad))
+                                                        {{ $producto }}
+                                                        <span class="badge badge-secondary badge-pill">
+                                                            x {{ $cantidad }}
+                                                        </span>
+                                                    @elseif(isset($borrar))
+                                                        empty
+                                                    @else
+                                                        empty
+                                                    @endif
+                                                </a>
+                                            </div>
 
-                                        <ul class="list-group">
-                                            <li class="list-group-item disabled">empty</li>
-                                        </ul>
+                                            <div class="col-1">
+                                                <input type="submit" name="quitar" class="btn btn-outline-danger" value="x" />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
+
                     </div>
                 </div>
 

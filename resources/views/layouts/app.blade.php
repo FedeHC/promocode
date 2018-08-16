@@ -21,13 +21,14 @@
 </head>
 
 <body>
-<div id="app">
-    {{-- NAVBAR --}}
-    @include('layouts.nav')
+<div id="wrap">
+    <div id="main">
+        {{-- NAVBAR --}}
+        @include('layouts.nav')
 
-    {{-- CONTENIDO DE LAS VISTAS --}}
-    @yield('content')
-
+        {{-- CONTENIDO DE LAS VISTAS --}}
+        @yield('content')
+    </div>
     {{-- FOOTER --}}
     @include('layouts.footer')
 </div>

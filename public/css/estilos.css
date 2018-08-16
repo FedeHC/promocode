@@ -1,13 +1,30 @@
 /* estilos.css */
 
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+#main {
+    padding-bottom: 60px;
+}
+
 .footer {
-    position: fixed;
-    margin: auto;
-    left: 0;
+    position: absolute;
     bottom: 0;
     width: 100%;
-    background-color: lightgrey;
-    color: black;
-    text-align: center;
-    font-size: 15px;
+    height: 65px;
+}
+
+/* Ajustantando para alinear las listas con los inputs en vista 'Shop cart') */
+.list-group-item {
+    padding-top: 6px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
