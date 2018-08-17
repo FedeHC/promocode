@@ -8,12 +8,13 @@
             <div class="col-md-10">
                 <br><br>
 
+                {{-- SELECCION DE PRODUCTOS --}}
                 <div class="card">
                     <div class="card-header">{{ __('Buy what you want:') }}</div>
 
                     <div class="card-body">
 
-                        {{-- FORM --}}
+                        {{-- FORMULARIO --}}
                         <form method="post">
                             @csrf
 
@@ -23,12 +24,12 @@
                                 <div class="col-sm-6">
                                     <label>Product & Price:</label>
                                     <div class="form-group">
-                                        <select name="products" class="custom-select" autofocus required>
-                                            <option value="Cool T-Shirt:25">Cool T-Shirt - $25</option>
-                                            <option value="Awesome Jeans:50">Awesome Jeans - $50</option>
-                                            <option value="Incredible Shoes:100">Incredible Shoes - $100 </option>
-                                            <option value="Fabulous Lenses:75">Fabulous Lenses - $75</option>
-                                            <option value="Nice Sweater:60">Nice Sweater - $60</option>
+                                        <select name="products" class="custom-select" required>
+                                            @if(isset($todos_productos))
+                                                @foreach($todos_productos as $p)
+                                                    <option value="{{ $p[0] }}:{{ $p[1] }}">{{ $p[0] }} - ${{ $p[1] }}</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                     </div>
                                 </div>
@@ -74,16 +75,17 @@
 
                 <br><br>
 
+                {{-- carro DE COMPRAS --}}
                 <div class="card">
                     <div class="card-header">{{ __('Your current cart:') }}</div>
 
                     <div class="card-body">
-                        @if(isset($carrito_compras) && count($carrito_compras) > 0)
+                        @if(isset($carro_compras) && count($carro_compras) > 0)
 
                             {{-- TABLA --}}
                             <table class="table table-striped table-borderless table-lg">
 
-                                <thead class="thead-secondary">
+                                <thead class="thead-dark">
                                 <tr class="table-secondary">
                                     <th scope="col"></th>
                                     <th scope="col">Product</th>
@@ -96,7 +98,7 @@
 
                                 <tbody>
 
-                                @foreach($carrito_compras as $array_producto)
+                                @foreach($carro_compras as $array_producto)
                                     <tr>
                                         <td>
                                             <img src="{{ asset('imagenes/price-tag.png')}}" width="70"/>
@@ -116,7 +118,7 @@
                                                 <td><b>x {{ $value }}</b></td>
 
                                             @elseif($key == 'precio_final')
-                                                <td><h4>$ {{ $value }}</h4>
+                                                <td><h4>${{ $value }}</h4>
                                             @else
                                                 <td>
                                                     <form method="post">
@@ -133,9 +135,13 @@
                                 {{-- TOTAL --}}
                                 @if(isset($total))
                                 <tr class="table-secondary">
-                                    <td class="text-right" colspan="4">Total:</td>
-                                    <td class="h3">$ {{ $total }}</td>
                                     <td></td>
+                                    <td>
+                                        <h2>Total:</h2>
+                                        <p><i>All taxes included.</i></p>
+                                    </td>
+                                    <td colspan="2"></td>
+                                    <td colspan="2 text-left"><h2>${{ $total }}</h2></td>
                                 </tr>
                                 @endif
 

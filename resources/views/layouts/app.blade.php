@@ -12,6 +12,9 @@
     {{-- Título (Nota: no olvidarse de poner 'PromoCODE' en archivo '.env' --}}
     <title>{{ config('app.name', 'PromoCODE') }} @yield('title')</title>
 
+    {{-- Icono de pestaña --}}
+    <link rel="shortcut icon" href="{{ asset('favicon.png') }}">
+
     {{-- Scripts --}}
     <script src="{{ asset('js/app.js') }}" defer></script>
 

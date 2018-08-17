@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Gabievi\Promocodes\Facades\Promocodes;
-use Gabievi\Promocodes\Exceptions\InvalidPromocodeException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
+// Gabievi Promocodes:
+use Gabievi\Promocodes\Facades\Promocodes;
+use Gabievi\Promocodes\Exceptions\InvalidPromocodeException;
 
 
 class PromocodeController extends Controller
@@ -23,16 +25,21 @@ class PromocodeController extends Controller
             else
                 $discount = "40";
 
+
             // Creando código y obteniéndolo luego desde tabla 'promocodes':
             Promocodes::create($amount = 1, $reward = $discount, $data = [], $expires_in = 30);
             $code = DB::table('promocodes')->orderBy('id', 'desc')->first()->code;
 
+
+            // Retornando vista con parámetros:
             return view('pcode.add', compact("code"));
         }
 
         // GET:
-        else
+        else {
+            // Retornando vista:
             return view('pcode.add');
+        }
     }
 
 
@@ -43,6 +50,7 @@ class PromocodeController extends Controller
 
             // Obteniendo código desde formulario:
             $code = $request->code;
+
 
             // Chequeando si es válido, inválido o inexistente:
             try {
@@ -56,12 +64,15 @@ class PromocodeController extends Controller
                 $mensaje = "This code does not exist";
             }
 
+            // Retornando vista con parámetros:
             return view('pcode.check', compact("code", "mensaje"));
         }
 
         // GET:
-        else
+        else {
+            // Retornando vista:
             return view('pcode.check');
+        }
     }
 
 
@@ -70,6 +81,7 @@ class PromocodeController extends Controller
         // Obteniendo todos los registros de columnas más importantes:
         $datos = DB::table('promocodes')->select('id', 'code', 'expires_at')->get();
 
+        // Retornando vista con parámetros:
         return view('pcodes', ['la_base_de_datos' => $datos]);
     }
 
@@ -77,32 +89,54 @@ class PromocodeController extends Controller
     public function view_shop_cart(Request $request)
     {
         // --------------------------------------------------------------------
-        // GRAN PARTE DEL CODIGO ES A MODO DE PRUEBA
+        // GRAN PARTE DE ESTE CODIGO ES A MODO DE PRUEBA
         // SE VA A MODIFICAR CUANDO EXISTA LA TABLA DE PRODUCTOS.
         // --------------------------------------------------------------------
 
-        $carrito_compras = array();
-        if ($request->session()->exists('carrito_compras'))
-            $carrito_compras = $request->session()->get('carrito_compras');
-        else
-            $request->session()->put('carrito_compras', $carrito_compras);
+        // Creando array temporal del carro:
+        $carro_compras = array();
 
+
+        // Si existe en sesión el array del mismo nombre:
+        if ($request->session()->exists('carro_compras'))
+            $carro_compras = $request->session()->get('carro_compras');
+
+
+        // De lo contrario creamos uno nuevo:
+        else {
+            $request->session()->put('carro_compras', $carro_compras);
+            $request->session()->save();
+        }
+
+        
+        // Creando array de productos:
+        $todos_productos = array(
+            array('Cool T-Shirt','25'),
+            array('Awesome Jeans','50'),
+            array('Incredible Shoes','60'),
+            array('Fabulous Lenses','20'),
+            array('Nice Sweater','35')
+        );
+
+        
         // POST:
         if ($request->isMethod('post')) {
 
-            // Si el user agregó un producto al carro de compras::
+            // Si el user agregó un producto al carro:
             if (isset($request->agregar)) {
 
-                // Obtenemos/generamos datos:
-                $id = count($carrito_compras);
+                // Obtenemos/generamos los datos necesarios.
+                // Nota: recordar que los ':' sirven de separador entre
+                // producto y precio
                 $nombre = strstr($request->products, ":", true);
                 $descripcion = "The most " . strtolower($nombre) . " you can buy!";
                 $precio_unitario = substr(strstr($request->products, ":"), 1);
                 $cantidad = $request->quantity;
                 $precio_final = round($cantidad * $precio_unitario);
+                $id = count($carro_compras);
 
-                // Creando array asociativo para cada producto, donde guardamos
-                // las variables creadas anteriormente:
+
+                // Creando array asociativo para cada producto con los datos anteriores:
                 $array_producto = array('nombre' => $nombre,
                     'descripcion' => $descripcion,
                     'precio_unitario' => $precio_unitario,
@@ -110,45 +144,59 @@ class PromocodeController extends Controller
                     'precio_final' => $precio_final,
                     'id' => $id);
 
-                // Guardando finalmente array de producto en array principal:
-                array_push($carrito_compras, $array_producto);
 
-                // Guardando carrito de compras en sesión:
-                $request->session()->put('carrito_compras', $carrito_compras);
+                // Guardando array de producto en array carro de compras:
+                array_push($carro_compras, $array_producto);
 
-                // Recorremos carrito de compras para obtener total:
+
+                // Guardando carro de compras en sesión:
+                $request->session()->put('carro_compras', $carro_compras);
+                $request->session()->save();
+
+                
+                // Recorremos carro de compras para obtener total:
                 $total = 0;
-                foreach ($carrito_compras as $producto)
+                foreach ($carro_compras as $producto)
                     $total += $producto['precio_final'];
 
-                return view('shop.cart', compact('carrito_compras', 'total'));
+
+                // Retornando vista con parámetros:
+                return view('shop.cart', compact('todos_productos','carro_compras', 'total'));
             }
 
             // Si el user decide quitar un producto:
             else {
+                // Obteniendo posición y luego borrarla:
                 $posicion = $request->posicion;
-                unset($carrito_compras[$posicion]);
+                unset($carro_compras[$posicion]);
 
-                // Guardando carrito de compras en sesión:
-                $request->session()->put('carrito_compras', $carrito_compras);
 
-                // Recorremos carrito de compras para obtener total:
+                // Guardando carro de compras en sesión:
+                $request->session()->put('carro_compras', $carro_compras);
+                $request->session()->save();
+
+
+                // Recorremos carro de compras para obtener total:
                 $total = 0;
-                foreach ($carrito_compras as $producto)
+                foreach ($carro_compras as $producto)
                     $total += $producto['precio_final'];
 
-                return view('shop.cart', compact('carrito_compras', 'total'));
+
+                // Retornando vista con parámetros:
+                return view('shop.cart', compact('todos_productos','carro_compras', 'total'));
             }
         }
 
         // GET:
         else {
-            // Recorremos carrito de compras para obtener total:
+            // Recorremos carro de compras para obtener total:
             $total = 0;
-            foreach ($carrito_compras as $producto)
+            foreach ($carro_compras as $producto)
                 $total += $producto['precio_final'];
 
-            return view('shop.cart', compact('carrito_compras', 'total'));
+
+            // Retornando vista con parámetros:
+            return view('shop.cart', compact('todos_productos','carro_compras', 'total'));
         }
     }
 }
