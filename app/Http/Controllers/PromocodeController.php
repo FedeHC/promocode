@@ -199,4 +199,8 @@ class PromocodeController extends Controller
             return view('shop.cart', compact('todos_productos','carro_compras', 'total'));
         }
     }
+    public function view_products(Request $request){
+
+        return view('products.products');
+    }
 }
