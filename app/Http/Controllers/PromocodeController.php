@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class PromocodeController extends Controller
 {
-
     public function view_agregar(Request $request)
     {
         // POST:
@@ -30,6 +29,7 @@ class PromocodeController extends Controller
 
             return view('pcode.add', compact("code"));
         }
+
         // GET:
         else
             return view('pcode.add');
@@ -58,6 +58,7 @@ class PromocodeController extends Controller
 
             return view('pcode.check', compact("code", "mensaje"));
         }
+
         // GET:
         else
             return view('pcode.check');
@@ -75,23 +76,79 @@ class PromocodeController extends Controller
 
     public function view_shop_cart(Request $request)
     {
+        // --------------------------------------------------------------------
+        // GRAN PARTE DEL CODIGO ES A MODO DE PRUEBA
+        // SE VA A MODIFICAR CUANDO EXISTA LA TABLA DE PRODUCTOS.
+        // --------------------------------------------------------------------
+
+        $carrito_compras = array();
+        if ($request->session()->exists('carrito_compras'))
+            $carrito_compras = $request->session()->get('carrito_compras');
+        else
+            $request->session()->put('carrito_compras', $carrito_compras);
+
         // POST:
         if ($request->isMethod('post')) {
-            if(isset($request->agregar)) {
-                $producto = $request->products;
+
+            // Si el user agregó un producto al carro de compras::
+            if (isset($request->agregar)) {
+
+                // Obtenemos/generamos datos:
+                $id = count($carrito_compras);
+                $nombre = strstr($request->products, ":", true);
+                $descripcion = "The most " . strtolower($nombre) . " you can buy!";
+                $precio_unitario = substr(strstr($request->products, ":"), 1);
                 $cantidad = $request->quantity;
+                $precio_final = round($cantidad * $precio_unitario);
 
-                return view('shop.cart', compact('producto', 'cantidad'));
+                // Creando array asociativo para cada producto, donde guardamos
+                // las variables creadas anteriormente:
+                $array_producto = array('nombre' => $nombre,
+                    'descripcion' => $descripcion,
+                    'precio_unitario' => $precio_unitario,
+                    'cantidad' => $cantidad,
+                    'precio_final' => $precio_final,
+                    'id' => $id);
+
+                // Guardando finalmente array de producto en array principal:
+                array_push($carrito_compras, $array_producto);
+
+                // Guardando carrito de compras en sesión:
+                $request->session()->put('carrito_compras', $carrito_compras);
+
+                // Recorremos carrito de compras para obtener total:
+                $total = 0;
+                foreach ($carrito_compras as $producto)
+                    $total += $producto['precio_final'];
+
+                return view('shop.cart', compact('carrito_compras', 'total'));
             }
-            else {
-                $borrar = true;
 
-                return view('shop.cart', compact('borrar'));
+            // Si el user decide quitar un producto:
+            else {
+                $posicion = $request->posicion;
+                unset($carrito_compras[$posicion]);
+
+                // Guardando carrito de compras en sesión:
+                $request->session()->put('carrito_compras', $carrito_compras);
+
+                // Recorremos carrito de compras para obtener total:
+                $total = 0;
+                foreach ($carrito_compras as $producto)
+                    $total += $producto['precio_final'];
+
+                return view('shop.cart', compact('carrito_compras', 'total'));
             }
         }
 
         // GET:
-        else
-            return view('shop.cart');
+        else {
+            // Recorremos carrito de compras para obtener total:
+            $total = 0;
+            foreach ($carrito_compras as $producto)
+                $total += $producto['precio_final'];
+
+            return view('shop.cart', compact('carrito_compras', 'total'));
+        }
     }
 }
