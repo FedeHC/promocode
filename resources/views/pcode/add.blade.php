@@ -16,14 +16,15 @@
                     <div class="card-body">
                         <div class="form-group row mb-0">
                             <div class="col-sm offset-md">
-                            <h4>Select the desired discount. By default the value is 20%</h4>
+                                <h4>Select the desired discount. By default the value is 20%</h4>
+
+                                {{-- Botón volver --}}
                                 <form method="post">
                                     @csrf
+
                                     <br>
                                     <input type="radio" name="discount" value="20disc" checked>20% Off
-
                                     <input type="radio" name="discount" value="30disc">30% Off
-
                                     <input type="radio" name="discount" value="40disc">40% Off
                                     <br>
                                    
@@ -49,10 +50,12 @@
 
                 <br><br>
 
+                {{-- Botón volver: --}}
                 <div class="text-center">
                     <a class="btn btn-outline-secondary justify-content-center" href="{{ url('/') }}">
                         {{ __('Back')}}</a>
                 </div>
+
             </div>
         </div>
     </div>
