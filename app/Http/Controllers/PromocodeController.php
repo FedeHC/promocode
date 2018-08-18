@@ -33,9 +33,7 @@ class PromocodeController extends Controller
 
             // Retornando vista con parámetros:
             return view('pcode.add', compact("code"));
-        }
-
-        // GET:
+        } // GET:
         else {
             // Retornando vista:
             return view('pcode.add');
@@ -66,9 +64,7 @@ class PromocodeController extends Controller
 
             // Retornando vista con parámetros:
             return view('pcode.check', compact("code", "mensaje"));
-        }
-
-        // GET:
+        } // GET:
         else {
             // Retornando vista:
             return view('pcode.check');
@@ -88,104 +84,113 @@ class PromocodeController extends Controller
 
     public function view_shop_cart(Request $request)
     {
-        // --------------------------------------------------------------------
-        // GRAN PARTE DE ESTE CODIGO ES A MODO DE PRUEBA
-        // SE VA A MODIFICAR CUANDO EXISTA LA TABLA DE PRODUCTOS.
-        // --------------------------------------------------------------------
+        // ------------------------------------------------------------------------
+        // LA MAYOR PARTE DE ESTE CODIGO FUE CREADO A MODO DE PRUEBA,
+        // LO QUE SIGNIFICA QUE VA A MODIFICAR CUANDO EXISTA LA TABLA DE PRODUCTOS.
+        // ------------------------------------------------------------------------
 
         // Creando array temporal del carro:
         $carro_compras = array();
 
 
-        // Si existe en sesión el array del mismo nombre:
+        // Si existe en sesión el array de carro de compras:
         if ($request->session()->exists('carro_compras'))
             $carro_compras = $request->session()->get('carro_compras');
-
-
-        // De lo contrario creamos uno nuevo:
-        else {
+        else
             $request->session()->put('carro_compras', $carro_compras);
-            $request->session()->save();
-        }
 
-        
+
+        // Si existe en sesión el contador de elementos borrados:
+        if ($request->session()->exists('cant_borrados'))
+            $cant_borrados = $request->session()->get('cant_borrados');
+        else
+            $request->session()->put('cant_borrados', 0);
+
+
         // Creando array de productos:
         $todos_productos = array(
-            array('Cool T-Shirt','25'),
-            array('Awesome Jeans','50'),
-            array('Incredible Shoes','60'),
-            array('Fabulous Lenses','20'),
-            array('Nice Sweater','35')
+            array('Cool T-Shirt', '25'),
+            array('Awesome Jeans', '50'),
+            array('Incredible Shoes', '60'),
+            array('Fabulous Lenses', '20'),
+            array('Nice Sweater', '35')
         );
 
-        
-        // POST:
-        if ($request->isMethod('post')) {
 
-            // Si el user agregó un producto al carro:
-            if (isset($request->agregar)) {
+        // POST
+        // Si el user agregó un producto al carro:
+        if ($request->isMethod('post') && isset($request->agregar)) {
 
-                // Obtenemos/generamos los datos necesarios.
-                // Nota: recordar que los ':' sirven de separador entre
-                // producto y precio
-                $nombre = strstr($request->products, ":", true);
-                $descripcion = "The most " . strtolower($nombre) . " you can buy!";
-                $precio_unitario = substr(strstr($request->products, ":"), 1);
-                $cantidad = $request->quantity;
-                $precio_final = round($cantidad * $precio_unitario);
-                $id = count($carro_compras);
+            // id = cant. productos existentes + cant. productos borrados + 1.
+            // (es un método simple para lograr que el id no se repita al borrar
+            // productos y volver a agregar nuevos):
+            $id = count($carro_compras) + 1 + $cant_borrados;
 
-
-                // Creando array asociativo para cada producto con los datos anteriores:
-                $array_producto = array('nombre' => $nombre,
-                    'descripcion' => $descripcion,
-                    'precio_unitario' => $precio_unitario,
-                    'cantidad' => $cantidad,
-                    'precio_final' => $precio_final,
-                    'id' => $id);
+            // Obtenemos/generamos los datos necesarios.
+            // Nota: recordar que los ':' sirven para separar producto y precio.
+            $nombre = strstr($request->products, ":", true);
+            $descripcion = "The most " . strtolower($nombre) . " you can buy!";
+            $precio_unitario = substr(strstr($request->products, ":"), 1);
+            $cantidad = $request->quantity;
+            $precio_final = round($cantidad * $precio_unitario);
 
 
-                // Guardando array de producto en array carro de compras:
-                array_push($carro_compras, $array_producto);
+            // Creando array asociativo para cada producto con los datos anteriores.
+            // El órden es importante para que salga bien en la vista:
+            $array_producto = array('id' => $id,
+                'nombre' => $nombre,
+                'descripcion' => $descripcion,
+                'precio_unitario' => $precio_unitario,
+                'cantidad' => $cantidad,
+                'precio_final' => $precio_final);
 
 
-                // Guardando carro de compras en sesión:
-                $request->session()->put('carro_compras', $carro_compras);
-                $request->session()->save();
-
-                
-                // Recorremos carro de compras para obtener total:
-                $total = 0;
-                foreach ($carro_compras as $producto)
-                    $total += $producto['precio_final'];
+            // Guardando array de producto en array carro de compras:
+            array_push($carro_compras, $array_producto);
 
 
-                // Retornando vista con parámetros:
-                return view('shop.cart', compact('todos_productos','carro_compras', 'total'));
-            }
-
-            // Si el user decide quitar un producto:
-            else {
-                // Obteniendo posición y luego borrarla:
-                $posicion = $request->posicion;
-                unset($carro_compras[$posicion]);
+            // Guardando carro de compras en sesión:
+            $request->session()->put('carro_compras', $carro_compras);
 
 
-                // Guardando carro de compras en sesión:
-                $request->session()->put('carro_compras', $carro_compras);
-                $request->session()->save();
+            // Recorremos carro de compras para obtener total:
+            $total = 0;
+            foreach ($carro_compras as $producto)
+                $total += $producto['precio_final'];
 
 
-                // Recorremos carro de compras para obtener total:
-                $total = 0;
-                foreach ($carro_compras as $producto)
-                    $total += $producto['precio_final'];
-
-
-                // Retornando vista con parámetros:
-                return view('shop.cart', compact('todos_productos','carro_compras', 'total'));
-            }
+            // Retornando vista con parámetros:
+            return view('shop.cart', compact('todos_productos', 'carro_compras', 'total'));
         }
+
+
+        // Si en cambio el user decide quitar un producto:
+        elseif ($request->isMethod('post') && isset($request->quitar)) {
+
+            // Obteniendo posición, borrarla e incrementar contador:
+            $posicion = $request->posicion - 1;
+            unset($carro_compras[$posicion]);
+            $cant_borrados++;
+
+
+            // Guardando carro de compras en sesión:
+            $request->session()->put('carro_compras', $carro_compras);
+
+
+            // Guardando cant_borrados en sesión:
+            $request->session()->put('cant_borrados', $cant_borrados);
+
+
+            // Recorremos carro de compras para obtener total:
+            $total = 0;
+            foreach ($carro_compras as $producto)
+                $total += $producto['precio_final'];
+
+
+            // Retornando vista con parámetros:
+            return view('shop.cart', compact('todos_productos', 'carro_compras', 'total'));
+        }
+
 
         // GET:
         else {
@@ -196,7 +201,7 @@ class PromocodeController extends Controller
 
 
             // Retornando vista con parámetros:
-            return view('shop.cart', compact('todos_productos','carro_compras', 'total'));
+            return view('shop.cart', compact('todos_productos', 'carro_compras', 'total'));
         }
     }
 }

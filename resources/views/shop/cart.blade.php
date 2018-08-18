@@ -87,6 +87,7 @@
 
                                 <thead class="thead-dark">
                                 <tr class="table-secondary">
+                                    <th scope="col">Id</th>
                                     <th scope="col"></th>
                                     <th scope="col">Product</th>
                                     <th scope="col">Unit Price</th>
@@ -97,45 +98,53 @@
                                 </thead>
 
                                 <tbody>
+                                    @foreach($carro_compras as $array_producto)
+                                        <tr>
+                                            @foreach($array_producto as $key => $value)
 
-                                @foreach($carro_compras as $array_producto)
-                                    <tr>
-                                        <td>
-                                            <img src="{{ asset('imagenes/price-tag.png')}}" width="70"/>
-                                        </td>
-                                        @foreach($array_producto as $key => $value)
+                                                @if($key == 'id')
+                                                    <td>
+                                                        <p><b>#{{ $value }}</b></p>
+                                                    </td>
 
-                                            @if($key == 'nombre')
-                                                <td><h1>{{ $value }}</h1>
+                                                    {{-- Agregando imágen como 2° columna (después de id): --}}
+                                                    <td>
+                                                        <img src="{{ asset('imagenes/price-tag.png')}}" width="70"/>
+                                                    </td>
 
-                                            @elseif($key == 'descripcion')
-                                                <p>{{ $value }}</p></td>
+                                                @elseif($key == 'nombre')
+                                                    <td><h1>{{ $value }}</h1>
 
-                                            @elseif($key == 'precio_unitario')
-                                                <td>$ {{ $value }}</td>
+                                                @elseif($key == 'descripcion')
+                                                    <p>{{ $value }}</p></td>
 
-                                            @elseif($key == 'cantidad')
-                                                <td><b>x {{ $value }}</b></td>
+                                                @elseif($key == 'precio_unitario')
+                                                    <td>$ {{ $value }}</td>
 
-                                            @elseif($key == 'precio_final')
-                                                <td><h4>${{ $value }}</h4>
-                                            @else
-                                                <td>
-                                                    <form method="post">
-                                                        @csrf
-                                                        <input type="hidden" name='posicion' value="{{ $value }}">
-                                                        <input type="submit" name="quitar" class="btn btn-outline-secondary btn-sm" value="x" />
-                                                    </form>
-                                                </td>
-                                            @endif
-                                        @endforeach
-                                    </tr>
-                                @endforeach
+                                                @elseif($key == 'cantidad')
+                                                    <td><b>x {{ $value }}</b></td>
+
+                                                @else
+                                                    <td><h4>${{ $value }}</h4></td>
+
+                                                    <td>
+                                                        {{-- Formulario para botón de eliminar productos --}}
+                                                        <form method="post">
+                                                            @csrf
+                                                            <input type="hidden" name="posicion" value="{{ $array_producto['id'] }}" />
+                                                            <input type="submit" name="quitar" class="btn btn-outline-danger btn-sm" value="x" />
+                                                        </form>
+                                                    </td>
+                                                @endif
+
+                                            @endforeach
+                                        </tr>
+                                    @endforeach
 
                                 {{-- TOTAL --}}
                                 @if(isset($total))
                                 <tr class="table-secondary">
-                                    <td></td>
+                                    <td colspan="2"></td>
                                     <td>
                                         <h2>Total:</h2>
                                         <p><i>All taxes included.</i></p>
