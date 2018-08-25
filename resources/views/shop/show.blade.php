@@ -3,9 +3,9 @@
 @section('title', ' - Shop cart')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-lg-8 col-sm-12">
                 <br><br>
 
                 {{-- SELECCION DE PRODUCTOS --}}
@@ -20,8 +20,9 @@
 
                 {{-- CARRO DE COMPRAS --}}
                 <div class="card">
+                    <a id="ver"></a>
                     <div class="card-header">{{ __('Your current cart:') }}</div>
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         @include('shop.kart')
                     </div>
                 </div>

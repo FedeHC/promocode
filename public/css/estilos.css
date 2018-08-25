@@ -1,6 +1,5 @@
 /* estilos.css */
 
-
 html {
     position: relative;
     min-height: 100%;
@@ -27,4 +26,10 @@ body {
     padding-bottom: 7px;
     padding-left: 10px;
     padding-right: 10px;
+}
+
+#ver, #ver:hover {
+    color: inherit !important;
+    text-decoration: none;
+    cursor: text !important;
 }

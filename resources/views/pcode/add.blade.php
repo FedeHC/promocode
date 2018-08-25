@@ -18,7 +18,7 @@
                             <div class="col-sm offset-md">
                                 <h4>Select the desired discount. By default the value is 20%</h4>
 
-                                {{-- Botón volver --}}
+                                {{-- Formulario con las opciones de descuento --}}
                                 <form method="post">
                                     @csrf
 
