@@ -9,7 +9,8 @@
     {{-- CSRF Token --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {{-- Título (Nota: no olvidarse de poner 'PromoCODE' en archivo '.env' --}}
+    {{-- Título --}}
+    {{-- (Nota: no olvidarse de poner 'APP_NAME=PromoCODE' en archivo '.env') --}}
     <title>{{ config('app.name', 'PromoCODE') }} @yield('title')</title>
 
     {{-- Icono de pestaña --}}
@@ -32,6 +33,7 @@
         {{-- CONTENIDO DE LAS VISTAS --}}
         @yield('content')
     </div>
+
     {{-- FOOTER --}}
     @include('layouts.footer')
 </div>

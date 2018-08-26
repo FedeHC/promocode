@@ -27,11 +27,9 @@ class PromocodeController extends Controller
             else
                 $discount = "40";
 
-
             // Creando código y obteniéndolo luego desde tabla 'promocodes':
             Promocodes::create($amount = 1, $reward = $discount, $data = [], $expires_in = 30);
             $code = DB::table('promocodes')->orderBy('id', 'desc')->first()->code;
-
 
             // Retornando vista con parámetros:
             return view('pcode.add', compact("code"));
@@ -52,7 +50,6 @@ class PromocodeController extends Controller
 
             // Obteniendo código desde formulario:
             $code = $request->code;
-
 
             // Chequeando si es válido, inválido o inexistente:
             try {
@@ -90,115 +87,101 @@ class PromocodeController extends Controller
 
     public function view_shop_cart(Request $request)
     {
-        // --------------------------------------------------------------------
-        // GRAN PARTE DE ESTE CODIGO ES A MODO DE PRUEBA
-        // SE VA A MODIFICAR CUANDO EXISTA LA TABLA DE PRODUCTOS.
-        // --------------------------------------------------------------------
+        // ------------------------------------------------------------------------
+        // Nota:
+        //
+        // Esta función de carro de compras fue creado a MODO DE PRUEBA.
+        // sin emplear tablas, usando solamente arrays y guardándolas en 'session'.
+        // Y los datos de los productos comprados se guardan temp. entre logueos.
+        //
+        // Esto hay que modificarlo cuando se haya creado la tabla 'Productos' y
+        // puedan guardarse las compras de modo definitivo.
+        // ------------------------------------------------------------------------
 
-        // Creando array temporal del carro:
+        // Carro de compras:
         $carro_compras = array();
 
-
-        // Si existe en sesión el array del mismo nombre:
         if ($request->session()->exists('carro_compras'))
             $carro_compras = $request->session()->get('carro_compras');
 
 
-        // De lo contrario creamos uno nuevo:
-        else {
-            $request->session()->put('carro_compras', $carro_compras);
-            $request->session()->save();
-        }
-
-        
-        // Creando array de productos:
+        // Array global c/todos los arrays de productos.
+        // C/u de estos son para mostrar en el <select> de la vista:
         $todos_productos = array(
-            array('Cool T-Shirt','25'),
-            array('Awesome Jeans','50'),
-            array('Incredible Shoes','60'),
-            array('Fabulous Lenses','20'),
-            array('Nice Sweater','35')
+            array('Cool T-Shirt', '25'),
+            array('Awesome Jeans', '50'),
+            array('Incredible Shoes', '60'),
+            array('Fabulous Lenses', '20'),
+            array('Nice Sweater', '35')
         );
 
-        
-        // POST:
-        if ($request->isMethod('post')) {
+        // [POST]
 
-            // Si el user agregó un producto al carro:
-            if (isset($request->agregar)) {
+        // Si el user agregó un producto al carro...
+        if ($request->isMethod('post') && isset($request->agregar)) {
 
-                // Obtenemos/generamos los datos necesarios.
-                // Nota: recordar que los ':' sirven de separador entre
-                // producto y precio
-                $nombre = strstr($request->products, ":", true);
-                $descripcion = "The most " . strtolower($nombre) . " you can buy!";
-                $precio_unitario = substr(strstr($request->products, ":"), 1);
-                $cantidad = $request->quantity;
-                $precio_final = round($cantidad * $precio_unitario);
-                $id = count($carro_compras);
+            // (Nota: recordar que ':' en strstr() sirve como referencia para
+            // separar producto y precio)
+            $nombre = strstr($request->products, ":", true);
+            $descripcion = "The most " . strtolower($nombre) . " you can buy!";
+            $precio_unitario = substr(strstr($request->products, ":"), 1);
+            $cantidad = $request->quantity;
+            $precio_final = round($cantidad * $precio_unitario);
 
+            // Array de productos:
+            // (Nota: el órden importa para que salga bien en la vista)
+            $array_producto = array('nombre' => $nombre,
+                                    'descripcion' => $descripcion,
+                                    'precio_unitario' => $precio_unitario,
+                                    'cantidad' => $cantidad,
+                                    'precio_final' => $precio_final);
 
-                // Creando array asociativo para cada producto con los datos anteriores:
-                $array_producto = array('nombre' => $nombre,
-                    'descripcion' => $descripcion,
-                    'precio_unitario' => $precio_unitario,
-                    'cantidad' => $cantidad,
-                    'precio_final' => $precio_final,
-                    'id' => $id);
+            // Guardando carro de compras:
+            array_push($carro_compras, $array_producto);
+            $request->session()->put('carro_compras', $carro_compras);
 
-
-                // Guardando array de producto en array carro de compras:
-                array_push($carro_compras, $array_producto);
-
-
-                // Guardando carro de compras en sesión:
-                $request->session()->put('carro_compras', $carro_compras);
-                $request->session()->save();
-
-                
-                // Recorremos carro de compras para obtener total:
-                $total = 0;
-                foreach ($carro_compras as $producto)
-                    $total += $producto['precio_final'];
-
-
-                // Retornando vista con parámetros:
-                return view('shop.cart', compact('todos_productos','carro_compras', 'total'));
-            }
-
-            // Si el user decide quitar un producto:
-            else {
-                // Obteniendo posición y luego borrarla:
-                $posicion = $request->posicion;
-                unset($carro_compras[$posicion]);
-
-
-                // Guardando carro de compras en sesión:
-                $request->session()->put('carro_compras', $carro_compras);
-                $request->session()->save();
-
-
-                // Recorremos carro de compras para obtener total:
-                $total = 0;
-                foreach ($carro_compras as $producto)
-                    $total += $producto['precio_final'];
-
-
-                // Retornando vista con parámetros:
-                return view('shop.cart', compact('todos_productos','carro_compras', 'total'));
-            }
-        }
-
-        // GET:
-        else {
-            // Recorremos carro de compras para obtener total:
+            // Sacando total desde el carro de compras:
             $total = 0;
             foreach ($carro_compras as $producto)
                 $total += $producto['precio_final'];
 
 
-            // Retornando vista con parámetros:
-            return view('shop.cart', compact('todos_productos','carro_compras', 'total'));
+            // Retornando vista:
+            return view('shop.show', compact('todos_productos', 'carro_compras', 'total'));
+        }
+
+
+        // Si en cambio el user decide quitar un producto...
+        elseif ($request->isMethod('post') && isset($request->quitar)) {
+
+            // Obteniendo posición y borrando producto en carro de compras:
+            $pos = $request->posicion - 1;
+            array_splice($carro_compras, $pos, 1);
+
+            // Guardando carro de compras:
+            $request->session()->put('carro_compras', $carro_compras);
+
+            // Sacando total desde el carro de compras:
+            $total = 0;
+            foreach ($carro_compras as $producto)
+                $total += $producto['precio_final'];
+
+
+            // Retornando vista:
+            return view('shop.show', compact('todos_productos', 'carro_compras', 'total'));
+        }
+
+
+        // GET:
+        else {
+            // Sacando total desde el carro de compras:
+            $total = 0;
+            foreach ($carro_compras as $producto)
+                $total += $producto['precio_final'];
+
+
+            // Retornando vista:
+            return view('shop.show', compact('todos_productos', 'carro_compras', 'total'));
         }
     }
     public function view_products(Request $request){
