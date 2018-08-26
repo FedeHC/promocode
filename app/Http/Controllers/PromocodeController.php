@@ -201,6 +201,8 @@ class PromocodeController extends Controller
     }
     public function view_products(Request $request){
 
-        return view('products.products');
+        $prod_table = DB::table('products')->select('id', 'name', 'precio')->get();
+
+        return view('products.products', ['lista_productos' => $prod_table]);
     }
 }
