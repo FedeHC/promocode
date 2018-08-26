@@ -59,22 +59,25 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            <form method="post">
+                                @csrf
                             <div class="modal-body">
-                                <form method="post">
+
                                     <div class="form-group">
                                         <label for="add_product">Product name</label>
                                     <input type="text" class="form-control" id="add_product" placeholder="Enter name" name="product_name">
                                     </div>
                                     <div class="form-group">
                                         <label for="add_value">Product value</label>
-                                        <input type="text" class="form-control" id="add_value" placeholder="Enter value" name="product_value">
+                                        <input type="number" class="form-control" id="add_value" placeholder="Enter value" name="product_value">
                                     </div>
-                                </form>
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Confirm</button>
+                                <button type="submit" class="btn btn-primary">Confirm</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
