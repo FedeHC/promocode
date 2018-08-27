@@ -7,7 +7,7 @@
         {{-- Cabecera de la tabla: --}}
         <thead class="thead-dark">
             <tr class="table-secondary">
-                <th scope="col">Id</th>
+                <th scope="col">#</th>
                 <th scope="col"></th>
                 <th scope="col">Product</th>
                 <th scope="col">Unit Price</th>
@@ -21,41 +21,32 @@
         <tbody>
 
             {{-- Generando filas de productos desde el array 'carro_compras' --}}
-            @foreach($carro_compras as $array_producto)
+            @foreach($carro_compras as $producto)
                 <tr>
 
-                    <td><p><b>#{{ $loop->iteration }}</b></p></td>
+                    <td><p><b>{{ $loop->iteration }})</b></p></td>
 
                     <td><img src="{{ asset('imagenes/price-tag.png')}}" width="70"/></td>
 
-                    @foreach($array_producto as $key => $value)
+                    <td><h1>{{ $producto['nombre'] }}</h1>
 
-                        @if($key == 'nombre')
-                            <td><h1>{{ $value }}</h1>
+                     <p>{{ $producto['descripcion'] }}</p></td>
 
-                        @elseif($key == 'descripcion')
-                            <p>{{ $value }}</p></td>
+                    <td>$ {{ $producto['precio_unitario'] }}</td>
 
-                        @elseif($key == 'precio_unitario')
-                            <td>$ {{ $value }}</td>
+                    <td><b>x {{ $producto['cantidad'] }}</b></td>
 
-                        @elseif($key == 'cantidad')
-                            <td><b>x {{ $value }}</b></td>
+                    <td><h4>${{ $producto['precio_final'] }}</h4></td>
 
-                        @else
-                            <td><h4>${{ $value }}</h4></td>
+                    {{-- Formulario con ID y botón p/eliminar productos: --}}
+                    <td>
+                        <form method="post" action="#cart">
+                            @csrf
+                            <input type="hidden" name="posicion" value="{{ $loop->iteration }}" />
+                            <input type="submit" name="quitar" class="btn btn-outline-danger btn-md" value="x" />
+                        </form>
+                    </td>
 
-                            <td>
-                                {{-- Formulario con ID y botón p/eliminar productos: --}}
-                                <form method="post" action="#ver">
-                                    @csrf
-                                    <input type="hidden" name="posicion" value="{{ $loop->parent->iteration }}" />
-                                    <input type="submit" name="quitar" class="btn btn-outline-danger btn-md" value="x" />
-                                </form>
-                            </td>
-                        @endif
-
-                    @endforeach
                 </tr>
             @endforeach
 
@@ -71,15 +62,14 @@
                 <td colspan="2 text-left"><h2>${{ $total }}</h2></td>
             </tr>
 
-
-            {{-- [NO BORRAR] PARA CHEQUEAR/DEBUGGEAR:
+            {{--
+            [NO BORRAR: CODIGO PARA CHEQUEAR/DEBUGGEAR]
             <tr><td colspan="7"><pre>
                 @php
                     {{ print_r($carro_compras); }}
                 @endphp
-            </pre></td></tr>
+            </pre>
             --}}
-
 
             @endif
         </tbody>

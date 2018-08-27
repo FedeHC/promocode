@@ -1,5 +1,5 @@
 {{-- Formulario con productos p/comprar: --}}
-<form method="post" action="#ver">
+<form method="post" action="#products">
     @csrf
 
     <div class="row">
@@ -8,14 +8,17 @@
         <div class="col-md-6">
             <label>Product & Price:</label>
             <div class="form-group">
+
                 <select name="products" class="custom-select" required>
-                    {{-- Nota: el ':' sirve de caracter separador en controller. --}}
                     @if(isset($todos_productos))
-                        @foreach($todos_productos as $p)
-                            <option value="{{ $p[0] }}:{{ $p[1] }}">{{ $p[0] }} - ${{ $p[1] }}</option>
+                        @foreach($todos_productos as $producto)
+                            <option value="{{ $producto->id }}">{{ $producto->name }} - ${{ $producto->value }}</option>
                         @endforeach
+                    @else
+                        <option value="">Sorry, no data available at the moment. :(</option>
                     @endif
                 </select>
+
             </div>
         </div>
 

@@ -150,7 +150,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Gabievi\Promocodes\PromocodesServiceProvider::class,
+        // Gabievi\Promocodes\PromocodesServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         /*
          * Application Service Providers...
