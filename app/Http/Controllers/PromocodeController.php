@@ -201,5 +201,9 @@ class PromocodeController extends Controller
         $productito->precio = $request->product_value;
 
         $productito->save();
+
+        $prod_table = DB::table('products')->select('id', 'name', 'precio')->get();
+
+        return view('products.products', ['lista_productos' => $prod_table]);
     }
 }
