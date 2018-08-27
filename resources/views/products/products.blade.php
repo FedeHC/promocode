@@ -31,7 +31,7 @@
                                         <tr>
                                             <td>{{ $fila->id }}</td>
                                             <td><b>{{ $fila->name }}</b></td>
-                                            <td>{{ $fila->precio }}</td>
+                                            <td>{{ $fila->value }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -61,22 +61,25 @@
                             </div>
                             <form method="post">
                                 @csrf
-                            <div class="modal-body">
+                                <div class="modal-body">
 
                                     <div class="form-group">
                                         <label for="add_product">Product name</label>
-                                    <input type="text" class="form-control" id="add_product" placeholder="Enter name" name="product_name">
+                                        <input type="text" class="form-control" id="add_product" placeholder="Enter name" name="product_name">
                                     </div>
                                     <div class="form-group">
                                         <label for="add_value">Product value</label>
                                         <input type="number" class="form-control" id="add_value" placeholder="Enter value" name="product_value">
                                     </div>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Confirm</button>
-                            </div>
+                                    <div class="form-group">
+                                        <label for="add_detail">Product detail</label>
+                                        <input type="text" class="form-control" id="add_detail" placeholder="Description" name="product_detail">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Confirm</button>
+                                </div>
                             </form>
                         </div>
                     </div>
