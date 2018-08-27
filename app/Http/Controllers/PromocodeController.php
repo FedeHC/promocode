@@ -186,7 +186,7 @@ class PromocodeController extends Controller
     }
     public function view_products(Request $request){
 
-        $prod_table = DB::table('products')->select('id', 'name', 'precio')->get();
+        $prod_table = DB::table('products')->select('id', 'name', 'value')->get();
 
         return view('products.products', ['lista_productos' => $prod_table]);
     }
@@ -198,11 +198,12 @@ class PromocodeController extends Controller
         $productito = new Product;
 
         $productito->name = $request->product_name;
-        $productito->precio = $request->product_value;
+        $productito->value = $request->product_value;
+        $productito->detail = $request->product_detail;
 
         $productito->save();
 
-        $prod_table = DB::table('products')->select('id', 'name', 'precio')->get();
+        $prod_table = DB::table('products')->select('id', 'name', 'value')->get();
 
         return view('products.products', ['lista_productos' => $prod_table]);
     }
