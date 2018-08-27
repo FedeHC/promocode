@@ -17,10 +17,15 @@ class RolesAndPermissions extends Seeder
         app()['cache']->forget('spatie.permission.cache');
 
         // create permissions
-        Permission::create(['name' => 'create user']);
-        Permission::create(['name' => 'read users']);
-        Permission::create(['name' => 'update user']);
-        Permission::create(['name' => 'delete user']);
+        Permission::create(['name' => 'create promocode']);
+        Permission::create(['name' => 'read promocodes']);
+        Permission::create(['name' => 'update promocode']);
+        Permission::create(['name' => 'delete promocode']);
+
+        Permission::create(['name' => 'create product']);
+        Permission::create(['name' => 'read products']);
+        Permission::create(['name' => 'update product']);
+        Permission::create(['name' => 'delete product']);
 
         Permission::create(['name' => 'create role']);
         Permission::create(['name' => 'read roles']);
@@ -33,17 +38,25 @@ class RolesAndPermissions extends Seeder
         Permission::create(['name' => 'delete permission']);
 
         // create roles and assign created permissions
-
+        // EDITOR
         $role = Role::create(['name' => 'editor']);
-        $role->givePermissionTo('read users');
-        $role->givePermissionTo('update user');
+        $role->givePermissionTo('read promocodes');
+        $role->givePermissionTo('read products');
+        $role->givePermissionTo('update promocode');
+        $role->givePermissionTo('update product');
 
+        // MODERATOR
         $role = Role::create(['name' => 'moderator']);
-        $role->givePermissionTo('create user');
-        $role->givePermissionTo('read users');
-        $role->givePermissionTo('update user');
-        $role->givePermissionTo('delete user');
-
+        $role->givePermissionTo('create promocode');
+        $role->givePermissionTo('read promocodes');
+        $role->givePermissionTo('update promocode');
+        $role->givePermissionTo('delete promocode');
+        $role->givePermissionTo('create product');
+        $role->givePermissionTo('read products');
+        $role->givePermissionTo('update product');
+        $role->givePermissionTo('delete product');
+        
+        // SUPER-ADMIN
         $role = Role::create(['name' => 'super-admin']);
         $role->givePermissionTo(Permission::all());
     }

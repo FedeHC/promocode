@@ -7,17 +7,18 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-//    public function __construct()
-//    {
-//        $this->middleware('auth');
-//    }
+	/*
+   public function __construct()
+   {
+       $this->middleware('auth');
+   }*/
 
     public function index()
     {
     	/*
     	$user = Auth::user();
     	$rol = $user->roles->implode('name', ',');
-    	dd($rol);*/ 
+    	*/
     	
         return view('home.index');
     }
