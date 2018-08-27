@@ -11,6 +11,5 @@ Route::match(['get', 'post'], '/pcode/add','PromocodeController@view_agregar')->
 Route::match(['get', 'post'], '/pcode/check','PromocodeController@view_chequear')->name("checkcode");
 Route::get('/pcodes', 'PromocodeController@view_db')->name("codelist");
 Route::match(['get', 'post'], '/shop/cart','PromocodeController@view_shop_cart')->name("shopcart");
-Route::get('/products','PromocodeController@view_products')->name("products");
-Route::post('/products','PromocodeController@store_product')->name("productsAdd");
+Route::resource('products', 'ProductController');
 

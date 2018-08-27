@@ -165,30 +165,4 @@ class PromocodeController extends Controller
             return view('shop.show', compact('todos_productos', 'carro_compras', 'total'));
         }
     }
-
-
-    public function view_products(Request $request){
-
-        $prod_table = DB::table('products')->select('id', 'name', 'value')->get();
-
-        return view('products.products', ['lista_productos' => $prod_table]);
-    }
-
-
-    public function store_product(Request $request)
-    {
-        // Validate the request...
-
-        $productito = new Product;
-
-        $productito->name = $request->product_name;
-        $productito->value = $request->product_value;
-        $productito->detail = $request->product_detail;
-
-        $productito->save();
-
-        $prod_table = DB::table('products')->select('id', 'name', 'value')->get();
-
-        return view('products.products', ['lista_productos' => $prod_table]);
-    }
 }

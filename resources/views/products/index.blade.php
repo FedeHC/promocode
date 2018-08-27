@@ -22,7 +22,8 @@
                                     <tr class="table-secondary">
                                         <th scope="col">#</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Precio</th>
+                                        <th scope="col">Value</th>
+                                        <th scope="col">Detail</th>
                                     </tr>
                                     </thead>
 
@@ -32,6 +33,7 @@
                                             <td>{{ $fila->id }}</td>
                                             <td><b>{{ $fila->name }}</b></td>
                                             <td>{{ $fila->value }}</td>
+                                            <td>{{ $fila->detail }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -65,15 +67,15 @@
 
                                     <div class="form-group">
                                         <label for="add_product">Product name</label>
-                                        <input type="text" class="form-control" id="add_product" placeholder="Enter name" name="product_name">
+                                        <input type="text" class="form-control" id="add_product" placeholder="Enter name" name="product_name" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="add_value">Product value</label>
-                                        <input type="number" class="form-control" id="add_value" placeholder="Enter value" name="product_value">
+                                        <input type="number" class="form-control" id="add_value" placeholder="Enter value" name="product_value" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="add_detail">Product detail</label>
-                                        <input type="text" class="form-control" id="add_detail" placeholder="Description" name="product_detail">
+                                        <input type="text" class="form-control" id="add_detail" placeholder="Description" name="product_detail" required>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
