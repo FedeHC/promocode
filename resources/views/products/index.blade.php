@@ -16,7 +16,9 @@
                     <div class="card-body">
                         <div class="form-group row mb-0">
                             <div class="col-sm offset-md">
-
+                                <form method="post" id="delete_form">
+                                    @csrf
+                                    @method('DELETE')
                                 <table class="table table-striped table-borderless table-sm">
                                     <thead>
                                     <tr class="table-secondary">
@@ -24,20 +26,28 @@
                                         <th scope="col">Name</th>
                                         <th scope="col">Value</th>
                                         <th scope="col">Detail</th>
+                                        <th scope="col">Delete</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
+
                                     @foreach ($lista_productos as $fila)
                                         <tr>
                                             <td>{{ $fila->id }}</td>
                                             <td><b>{{ $fila->name }}</b></td>
                                             <td>{{ $fila->value }}</td>
                                             <td>{{ $fila->detail }}</td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value={{$fila->id}} aria-label="...">
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
                                 </table>
+                                </form>
                                 <br>
                             </div>
                         </div>
@@ -50,6 +60,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                     Add
                 </button>
+                <button type="submit" class="btn btn-primary" form="delete_form">Delete</button>
 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
