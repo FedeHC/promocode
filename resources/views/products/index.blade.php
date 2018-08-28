@@ -16,7 +16,7 @@
                     <div class="card-body">
                         <div class="form-group row mb-0">
                             <div class="col-sm offset-md">
-                                <form method="post" id="delete_form">
+                                <form method="post" id="delete_form" action="{{ route('products.del') }}">
                                     @csrf
                                     @method('DELETE')
                                 <table class="table table-striped table-borderless table-sm">
@@ -40,7 +40,7 @@
                                             <td>{{ $fila->detail }}</td>
                                             <td>
                                                 <div class="form-check">
-                                                    <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value={{$fila->id}} aria-label="...">
+                                                    <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" name="checkbox[]" value="{{$fila->id}}" aria-label="...">
                                                 </div>
                                             </td>
                                         </tr>

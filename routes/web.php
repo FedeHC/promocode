@@ -15,4 +15,6 @@ Route::get('/pcodes', 'PromocodeController@view_db')->name("codelist");
 Route::match(['get', 'post'], '/shop/cart','ShopController@view_shop_cart')->name("shopcart");
 
 // ProductController:
-Route::resource('products', 'ProductController');
+Route::delete('products', 'ProductController@destroy')->name("products.del");
+Route::resource('products', 'ProductController')->except(['destroy']);
+

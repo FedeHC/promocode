@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $prod_table = DB::table('products')->select('id', 'name', 'value', 'detail')->get();
+        $prod_table = Product::select('id', 'name', 'value', 'detail')->get();
 
         return view('products.index', ['lista_productos' => $prod_table]);
     }
@@ -46,9 +46,7 @@ class ProductController extends Controller
 
         $productito->save();
 
-        $prod_table = DB::table('products')->select('id', 'name', 'value')->get();
-
-        return view('products.index', ['lista_productos' => $prod_table]);
+        return redirect()->action('ProductController@index');
     }
 
     /**
@@ -91,8 +89,10 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request)
     {
-        //
+        Product::destroy($request->input('checkbox'));
+        //dd($request->input('checkbox'));
+        return redirect()->action('ProductController@index');
     }
 }
