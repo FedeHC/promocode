@@ -1,15 +1,14 @@
-@extends('layouts.home')
+@extends('layouts.app')
 
 @section('title', ' - Home')
 
 @section('content')
     <br><br>
 
-    <section class="jumbotron text-center">
-        <div class="container">
+    <div class="container-fluid">
+        <section class="jumbotron text-center">
 
-            <h1 class="jumbotron-heading">
-                Welcome
+            <h1 class="jumbotron-heading">Welcome
 
                 {{-- Mensaje como invitado: --}}
                 @guest
@@ -17,9 +16,7 @@
 
                 {{-- Mensaje como usuario logueado: --}}
                 @else
-                    @php
-                        echo " back ".@Auth::user()->name."!"
-                    @endphp
+                    back {{ Auth::user()->name }}!
                 @endif
             </h1>
 
@@ -27,19 +24,23 @@
             @guest
                 <p class="lead text-muted"> Register or Log in if you want to get a Promocodes!</p>
                 <p class="lead text-muted"> Go ahead, it's free! </p>
+
                 <a href="{{ route('login') }}" class="btn btn-outline-success btn-lg">Log in</a>
                 <a href="{{ route('register') }}" class="btn btn-outline-success btn-lg">Register</a>
+
 
             {{-- Usuario: --}}
             @else
                 <p class="lead text-muted"> We are happy to have you back! Have a good stay on our page.</p>
+
                 <a href="{{ route('addcode') }}" class="btn btn-outline-primary btn-lg">New Code</a>
                 <a href="{{ route('checkcode') }}" class="btn btn-outline-primary btn-lg">Check Code</a>
                 <a href="{{ route('codelist') }}" class="btn btn-outline-primary btn-lg">Code List</a>
+                <br>
                 <a href="{{ route('shopcart') }}" class="btn btn-outline-primary btn-lg">Shop Cart</a>
                 <a href="{{ route('products.index') }}" class="btn btn-outline-primary btn-lg">Products</a>
             @endif
 
-        </div>
-    </section>
+        </section>
+    </div>
 @endsection
