@@ -9,6 +9,13 @@ body {
     margin-bottom: 60px;
 }
 
+/*
+.navbar {
+    background: linear-gradient(to right, #F6CA1D, #EF3708, #B51E31);
+    border-color: transparent;
+}
+*/
+
 #main {
     padding-bottom: 60px;
 }
@@ -18,6 +25,11 @@ body {
     bottom: 0;
     width: 100%;
     height: 65px;
+    /*
+    background: linear-gradient(to right, #F6CA1D, #EF3708, #B51E31);
+    border-color: transparent;
+    color: white;
+    */
 }
 
 /* Ajustantando para alinear las listas con los inputs en vista 'Shop cart') */

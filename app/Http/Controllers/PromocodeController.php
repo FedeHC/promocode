@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\DB;
 use Gabievi\Promocodes\Facades\Promocodes;
 use Gabievi\Promocodes\Exceptions\InvalidPromocodeException;
 
-use App\Product;
-
 
 class PromocodeController extends Controller
 {
     public function view_agregar(Request $request)
     {
-        // [POST]
+        // ------------
+        // POST
+        // ------------
         if ($request->isMethod('post')) {
 
             // Creando descuentos según lo elegido desde formulario:
@@ -31,13 +31,13 @@ class PromocodeController extends Controller
             Promocodes::create($amount = 1, $reward = $discount, $data = [], $expires_in = 30);
             $code = DB::table('promocodes')->orderBy('id', 'desc')->first()->code;
 
-            // Retornando vista con parámetros:
+
             return view('pcode.add', compact("code"));
         }
-
-        // [GET]
+        // ------------
+        // GET
+        // ------------
         else {
-            // Retornando vista:
             return view('pcode.add');
         }
     }
@@ -45,7 +45,9 @@ class PromocodeController extends Controller
 
     public function view_chequear(Request $request)
     {
-        // [POST]
+        // ------------
+        // POST
+        // ------------
         if ($request->isMethod('post')) {
 
             // Obteniendo código desde formulario:
@@ -66,10 +68,10 @@ class PromocodeController extends Controller
             // Retornando vista con parámetros:
             return view('pcode.check', compact("code", "mensaje"));
         }
-
-        // [GET]
+        // ------------
+        // GET
+        // ------------
         else {
-            // Retornando vista:
             return view('pcode.check');
         }
     }
@@ -77,92 +79,10 @@ class PromocodeController extends Controller
 
     public function view_db()
     {
-        // Obteniendo todos los registros de columnas más importantes:
+        // Obteniendo array con las columnas más importantes de promocodes:
         $datos = DB::table('promocodes')->select('id', 'code', 'expires_at')->get();
 
-        // Retornando vista con parámetros:
         return view('pcodes', ['la_base_de_datos' => $datos]);
     }
 
-
-    public function view_shop_cart(Request $request)
-    {
-        // Variable local del carro de compras:
-        $carro_compras = array();
-
-        // Si hay carro de compras en sesión, traerlo y guardarlo en variable local:
-        if ($request->session()->exists('carro_compras'))
-            $carro_compras = $request->session()->get('carro_compras');
-
-        // Obteniendo array de productos desde DB:
-        $todos_productos = DB::table('products')->select('id', 'name', 'value', 'detail')->get();
-
-
-        // [POST]
-
-        // Si el user agregó un producto al carro...
-
-        if ($request->isMethod('post') && isset($request->agregar)) {
-
-            // Obteniendo id desde el <select> de la vista:
-            $id = $request->products;
-
-            // Obteniendo/generando los datos restantes:
-            // (Nota: le resto 1 al id porque el array debe arrancar desde cero)
-            $nombre = $todos_productos[$id - 1]->name;
-            $descripcion = $todos_productos[$id - 1]->detail;
-            $precio_unitario = $todos_productos[$id - 1]->value;
-            $cantidad = $request->quantity;
-            $precio_final = round($cantidad * $precio_unitario);
-
-            // Array de productos:
-            $array_producto = array('nombre' => $nombre,
-                'descripcion' => $descripcion,
-                'precio_unitario' => $precio_unitario,
-                'cantidad' => $cantidad,
-                'precio_final' => $precio_final);
-
-            // Guardando carro de compras:
-            array_push($carro_compras, $array_producto);
-            $request->session()->put('carro_compras', $carro_compras);
-
-            // Sacando total desde el carro de compras:
-            $total = 0;
-            foreach ($carro_compras as $producto)
-                $total += $producto['precio_final'];
-
-            return view('shop.show', compact('todos_productos', 'carro_compras', 'total'));
-        }
-
-
-        // Si en cambio el user decide quitar un producto...
-
-        elseif ($request->isMethod('post') && isset($request->quitar)) {
-
-            // Obteniendo posición y borrando producto en carro de compras:
-            $pos = $request->posicion - 1;
-            array_splice($carro_compras, $pos, 1);
-
-            // Guardando carro de compras:
-            $request->session()->put('carro_compras', $carro_compras);
-
-            // Sacando total desde el carro de compras:
-            $total = 0;
-            foreach ($carro_compras as $producto)
-                $total += $producto['precio_final'];
-
-            return view('shop.show', compact('todos_productos', 'carro_compras', 'total'));
-        }
-
-        // [GET]
-
-        else {
-            // Sacando total desde el carro de compras:
-            $total = 0;
-            foreach ($carro_compras as $producto)
-                $total += $producto['precio_final'];
-
-            return view('shop.show', compact('todos_productos', 'carro_compras', 'total'));
-        }
-    }
 }

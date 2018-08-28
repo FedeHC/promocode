@@ -1,5 +1,5 @@
 {{-- Tabla del carrito de compras: --}}
-@if(isset($carro_compras) && count($carro_compras) > 0)
+@if(isset($compras) && count($compras) > 0)
 
     {{-- La Tabla: --}}
     <table class="table table-striped table-borderless">
@@ -20,8 +20,8 @@
         {{-- Cuerpo de la Tabla: --}}
         <tbody>
 
-            {{-- Generando filas de productos desde el array 'carro_compras' --}}
-            @foreach($carro_compras as $producto)
+            {{-- Generando filas de productos desde el array 'compras' --}}
+            @foreach($compras as $producto)
                 <tr>
 
                     <td><p><b>{{ $loop->iteration }})</b></p></td>
@@ -62,11 +62,10 @@
                 <td colspan="2 text-left"><h2>${{ $total }}</h2></td>
             </tr>
 
-            {{--
-            [NO BORRAR: CODIGO PARA CHEQUEAR/DEBUGGEAR]
+            {{-- [NO BORRAR: CODIGO PARA CHEQUEAR/DEBUGGEAR]
             <tr><td colspan="7"><pre>
                 @php
-                    {{ print_r($carro_compras); }}
+                    {{ print_r($compras); }}
                 @endphp
             </pre>
             --}}

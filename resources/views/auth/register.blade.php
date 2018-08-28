@@ -75,6 +75,15 @@
                     </form>
                 </div>
             </div>
+
+            <br><br>
+
+            {{-- Botón volver: --}}
+            <div class="text-center">
+                <a class="btn btn-outline-secondary justify-content-center" href="{{ url('/') }}">
+                    {{ __('Back')}}</a>
+            </div>
+
         </div>
     </div>
 </div>
