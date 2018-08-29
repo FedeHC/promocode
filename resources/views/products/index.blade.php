@@ -19,6 +19,7 @@
                                 <form method="post" id="delete_form" action="{{ route('products.del') }}">
                                     @csrf
                                     @method('DELETE')
+                                </form>
                                 <table class="table table-striped table-borderless table-sm">
                                     <thead>
                                     <tr class="table-secondary">
@@ -41,16 +42,16 @@
                                             <td>{{ $fila->detail }}</td>
                                             <td>
                                                 <div class="form-check">
-                                                    <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" name="checkbox[]" value="{{$fila->id}}" aria-label="...">
+                                                    <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" name="checkbox[]" value="{{$fila->id}}" form="delete_form" aria-label="...">
                                                 </div>
                                             </td>
-                                            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_Modify">
+                                            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_Modify_{{$fila->id}}">
                                             Modify
                                             </button></td>
                                         </tr>
 
                                         <!-- Modal Modify -->
-                <div class="modal fade" id="modal_Modify" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal fade" id="modal_Modify_{{$fila->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -59,26 +60,27 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form method="post" id="mod_form" action= "{{ route('products.update') }}">
+                            <form method="post" id="mod_form" action= "{{ route('products.update', '$lista_productos') }}">
                                 @csrf
+                                @method('PUT')
                                 <div class="modal-body">
 
                                     <div class="form-group">
-                                        <label for="add_product">Product name</label>
-                                        <input type="text" class="form-control" id="mod_product" value= "{{ $fila->name }}"  name="product_name" required>
+                                        <label for="mod_product">Product name</label>
+                                        <input type="text" class="form-control" id="mod_product" value= "{{ $fila->name }}"  name="product_name" form="mod_form" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="add_value">Product value</label>
-                                        <input type="number" class="form-control" id="mod_value" value= "{{ $fila->value }}" name="product_value" required>
+                                        <label for="mod_value">Product value</label>
+                                        <input type="number" class="form-control" id="mod_value" value= "{{ $fila->value }}" name="product_value"  form="mod_form" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="add_detail">Product detail</label>
-                                        <input type="text" class="form-control" id="mod_detail" value= "{{ $fila->detail }}" name="product_detail" required>
+                                        <label for="mod_detail">Product detail</label>
+                                        <input type="text" class="form-control" id="mod_detail" value= "{{ $fila->detail }}" name="product_detail"  form="mod_form" required>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Confirm</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"  form="mod_form">Close</button>
+                                    <button type="submit" class="btn btn-primary"  form="mod_form">Confirm</button>
                                 </div>
                             </form>
                         </div>
@@ -87,7 +89,6 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-                                </form>
                                 <br>
                             </div>
                         </div>

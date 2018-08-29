@@ -80,7 +80,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->name = $request->product_name;
+        $product->value = $request->product_value;
+        $product->detail = $request->product_detail;
+
+        $product->save();
+
+        return redirect()->action('ProductController@index');
     }
 
     /**
