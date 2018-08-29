@@ -16,7 +16,6 @@ Route::match(['get', 'post'], '/shop/cart','ShopController@view_shop_cart')->nam
 
 // ProductController:
 Route::delete('products', 'ProductController@destroy')->name("products.del");
-Route::patch('products', 'ProductController@update')->name("products.update");
-Route::resource('products', 'ProductController')->except(['destroy','update']);
+Route::resource('products', 'ProductController')->except(['destroy']);
 
 
