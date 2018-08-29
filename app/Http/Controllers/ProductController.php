@@ -78,13 +78,14 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request)
     {
-        $product->name = $request->product_name;
-        $product->value = $request->product_value;
-        $product->detail = $request->product_detail;
+        $fila_a_cambiar = Product::find($request->product_id);
+        $fila_a_cambiar->name = $request->product_name;
+        $fila_a_cambiar->value = $request->product_value;
+        $fila_a_cambiar->detail = $request->product_detail;
 
-        $product->save();
+        $fila_a_cambiar->save();
 
         return redirect()->action('ProductController@index');
     }

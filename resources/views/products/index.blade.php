@@ -60,9 +60,9 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form method="post" id="mod_form" action= "{{ route('products.update', '$lista_productos') }}">
+                            <form method="post" id="mod_form" action= "{{ route('products.update') }}">
                                 @csrf
-                                @method('PUT')
+                                @method('PATCH')
                                 <div class="modal-body">
 
                                     <div class="form-group">
@@ -77,6 +77,7 @@
                                         <label for="mod_detail">Product detail</label>
                                         <input type="text" class="form-control" id="mod_detail" value= "{{ $fila->detail }}" name="product_detail"  form="mod_form" required>
                                     </div>
+                                        <input type="hidden" id="mod_id" value= "{{ $fila->id }}" name="product_id" form="mod_form">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal"  form="mod_form">Close</button>
@@ -113,26 +114,26 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form method="post">
+                            <form method="post" id="add_form">
                                 @csrf
                                 <div class="modal-body">
 
                                     <div class="form-group">
                                         <label for="add_product">Product name</label>
-                                        <input type="text" class="form-control" id="add_product" placeholder="Enter name" name="product_name" required>
+                                        <input type="text" class="form-control" id="add_product" placeholder="Enter name" name="product_name" form="add_form" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="add_value">Product value</label>
-                                        <input type="number" class="form-control" id="add_value" placeholder="Enter value" name="product_value" required>
+                                        <input type="number" class="form-control" id="add_value" placeholder="Enter value" name="product_value" form="add_form" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="add_detail">Product detail</label>
-                                        <input type="text" class="form-control" id="add_detail" placeholder="Description" name="product_detail" required>
+                                        <input type="text" class="form-control" id="add_detail" placeholder="Description" name="product_detail" form="add_form" required>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Confirm</button>
+                                    <button type="submit" class="btn btn-primary" form="add_form">Confirm</button>
                                 </div>
                             </form>
                         </div>
