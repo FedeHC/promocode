@@ -1,5 +1,5 @@
 {{-- Tabla del carrito de compras: --}}
-@if(isset($compras) && count($compras) > 0)
+@if(isset($cart) && $cart->count() > 0)
 
     {{-- La Tabla: --}}
     <table class="table table-striped table-borderless">
@@ -21,28 +21,28 @@
         <tbody>
 
             {{-- Generando filas de productos desde el array 'compras' --}}
-            @foreach($compras as $producto)
+            @foreach($cart as $product)
                 <tr>
-
                     <td><p><b>{{ $loop->iteration }})</b></p></td>
 
                     <td><img src="{{ asset('imagenes/price-tag.png')}}" width="70"/></td>
 
-                    <td><h1>{{ $producto['nombre'] }}</h1>
+                    <td><h1>{{ $product->p_name }}</h1>
 
-                     <p>{{ $producto['descripcion'] }}</p></td>
+                         <p><i>{{ $product->p_details }}</i></p>
+                    </td>
 
-                    <td>$ {{ $producto['precio_unitario'] }}</td>
+                    <td>$ {{ $product->p_price }}</td>
 
-                    <td><b>x {{ $producto['cantidad'] }}</b></td>
+                    <td><b>x {{ $product->p_quantity }}</b></td>
 
-                    <td><h4>${{ $producto['precio_final'] }}</h4></td>
+                    <td><h4>${{ $product->p_final_price }}</h4></td>
 
                     {{-- Formulario con ID y botón p/eliminar productos: --}}
                     <td>
                         <form method="post" action="#cart">
                             @csrf
-                            <input type="hidden" name="posicion" value="{{ $loop->iteration }}" />
+                            <input type="hidden" name="id_cart" value="{{ $product->id }}" />
                             <input type="submit" name="quitar" class="btn btn-outline-danger btn-md" value="x" />
                         </form>
                     </td>
@@ -61,14 +61,6 @@
                 <td colspan="2"></td>
                 <td colspan="2 text-left"><h2>${{ $total }}</h2></td>
             </tr>
-
-            {{-- [NO BORRAR: CODIGO PARA CHEQUEAR/DEBUGGEAR]
-            <tr><td colspan="7"><pre>
-                @php
-                    {{ print_r($compras); }}
-                @endphp
-            </pre>
-            --}}
 
             @endif
         </tbody>

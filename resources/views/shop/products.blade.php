@@ -9,10 +9,12 @@
             <label>Product & Price:</label>
             <div class="form-group">
 
-                <select name="products" class="custom-select" required>
-                    @if(isset($todos_productos))
-                        @foreach($todos_productos as $producto)
-                            <option value="{{ $producto->id }}">{{ $producto->name }} - ${{ $producto->value }}</option>
+                <select name="selected_product_id" class="custom-select" required>
+                    @if(isset($products))
+                        @foreach($products as $product)
+                            <option value="{{ $product->id }}">
+                                {{ $product->name }} - ${{ $product->value }}
+                            </option>
                         @endforeach
                     @else
                         <option value="">Sorry, no data available at the moment. :(</option>

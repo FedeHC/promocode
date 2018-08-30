@@ -2,98 +2,109 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
+// Modelos:
+use App\Product;
+use App\Cart;
+
+
+/**
+ * Class ShopController
+ * @package App\Http\Controllers
+ */
 class ShopController extends Controller
 {
+
+    /**
+     * Display the specified view
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function view_shop_cart(Request $request)
     {
-        $compras = [];
+        // Nueva instancia de carro para agregar un nuevo registro:
+        $cart_add = new Cart();
 
-        if ($request->session()->exists('compras'))
-            $compras = $request->session()->get('compras');
-
-        $todos_productos = DB::table('products')->select('id', 'name', 'value', 'detail')->get();
+        // Obteniendo colleciones de cada tabla, con las columnas relevantes:
+        $cart = Cart::all();
+        $products = Product::all();
 
         // ------------
         // POST
         // ------------
 
-        // ---------------------------------------
         // Si el user agregó producto al carro...
-        // ---------------------------------------
-
         if ($request->isMethod('post') && isset($request->agregar)) {
 
-            // Obteniendo id desde <select>:
-            $id = $request->products;
+            // Generando nuevo registro Cart:
+            $cart_add->user_id = Auth::user()->id;
+            $cart_add->p_id = $request->selected_product_id;
 
-            // Creando array de cada producto agregado:
-            // (Nota: se resta 1 a id, el array debe arrancar desde cero)
-            $nombre = $todos_productos[$id - 1]->name;
-            $descripcion = $todos_productos[$id - 1]->detail;
-            $precio_unitario = $todos_productos[$id - 1]->value;
-            $cantidad = $request->quantity;
-            $precio_final = round($cantidad * $precio_unitario);
+            // Nota: el [0] es para obtener el string del array devuelto:
+            $cart_add->p_name = $products
+                ->where('id', $cart_add->p_id)
+                ->pluck('name')[0];
+            $cart_add->p_details = $products
+                ->where('id', $cart_add->p_id)
+                ->pluck('detail')[0];
+            $cart_add->p_price = $products
+                ->where('id', $cart_add->p_id)
+                ->pluck('value')[0];
+            $cart_add->p_quantity = $request->quantity;
+            $cart_add->p_final_price = $cart_add->p_price * $cart_add->p_quantity;
 
-            $producto = array('nombre' => $nombre,
-                'descripcion' => $descripcion,
-                'precio_unitario' => $precio_unitario,
-                'cantidad' => $cantidad,
-                'precio_final' => $precio_final);
+            // Guardando registro:
+            $cart_add->save();
 
-            // Guardando carro de compras:
-            array_push($compras, $producto);
-            $request->session()->put('compras', $compras);
-
-            // Sacando total:
-            $total = $this->sacar_total($compras);
-
-            return view('shop.show',
-                compact('todos_productos', 'compras', 'total'));
+            return redirect()->route('shopcart');
         }
 
-        // ----------------------------------------
         // Si el user decide quitar un producto...
-        // ----------------------------------------
-
         elseif ($request->isMethod('post') && isset($request->quitar)) {
 
-            // Obteniendo posición y borrando producto:
-            // (Nota: se resta 1 a posicion, el array debe arrancar desde cero)
-            $pos = $request->posicion - 1;
-            array_splice($compras, $pos, 1);
+            // Obteniendo id del producto en carro:
+            $cart_product = Cart::find($request->id_cart);
 
-            // Guardando carro de compras:
-            $request->session()->put('compras', $compras);
+            // Borrando registro:
+            $cart_product->delete();
 
-            // Sacando total:
-            $total = $this->sacar_total($compras);
-
-            return view('shop.show',
-                compact('todos_productos', 'compras', 'total'));
+            return redirect()->route('shopcart');
         }
         // ------------
         // GET
         // ------------
         else {
-            // Sacando total:
-            $total = $this->sacar_total($compras);
+            // Obteniendo total de productos por user:
+            $total = $this->getTotal();
+
+            // Obtener solo productos del carro del usuario actual:
+            $cart = $cart->where('user_id', Auth::user()->id);
 
             return view('shop.show',
-                compact('todos_productos', 'compras', 'total'));
+                compact('products', 'cart', 'total'));
         }
     }
 
 
-    private function sacar_total($carro_compras)
+    /**
+     * Get total purchases from the current user.
+     *
+     * @return int
+     */
+    private function getTotal()
     {
         $total = 0;
 
-        if (count($carro_compras) > 0) {
-            foreach ($carro_compras as $producto)
-                $total += $producto['precio_final'];
+        $cart = Cart::select('p_final_price')
+            ->where('user_id', Auth::user()->id)
+            ->get();
+
+        if ($cart->count() > 0) {
+            foreach ($cart as $product)
+                $total += $product->p_final_price;
         }
 
         return $total;
