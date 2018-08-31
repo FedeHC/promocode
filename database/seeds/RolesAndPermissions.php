@@ -37,13 +37,21 @@ class RolesAndPermissions extends Seeder
         Permission::create(['name' => 'update permission']);
         Permission::create(['name' => 'delete permission']);
 
+        Permission::create(['name' => 'create cart']);
+        Permission::create(['name' => 'read carts']);
+        Permission::create(['name' => 'update cart']);
+        Permission::create(['name' => 'delete cart']);
+
+
         // create roles and assign created permissions
         // EDITOR
         $role = Role::create(['name' => 'editor']);
         $role->givePermissionTo('read promocodes');
         $role->givePermissionTo('read products');
+        $role->givePermissionTo('read carts');
         $role->givePermissionTo('update promocode');
         $role->givePermissionTo('update product');
+        $role->givePermissionTo('update cart');
 
         // MODERATOR
         $role = Role::create(['name' => 'moderator']);
@@ -55,9 +63,22 @@ class RolesAndPermissions extends Seeder
         $role->givePermissionTo('read products');
         $role->givePermissionTo('update product');
         $role->givePermissionTo('delete product');
+        $role->givePermissionTo('create cart');
+        $role->givePermissionTo('read carts');
+        $role->givePermissionTo('update cart');
+        $role->givePermissionTo('delete cart');
         
         // SUPER-ADMIN
         $role = Role::create(['name' => 'super-admin']);
         $role->givePermissionTo(Permission::all());
+
+        // CLIENTE
+        $role = Role::create(['name' => 'cliente']);
+        $role->givePermissionTo('read promocodes');
+        $role->givePermissionTo('read products');
+        $role->givePermissionTo('create cart');
+        $role->givePermissionTo('read carts');
+        $role->givePermissionTo('update cart');
+        $role->givePermissionTo('delete cart');
     }
 }
