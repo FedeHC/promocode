@@ -4,7 +4,6 @@ Auth::routes();
 
 // HomeController:
 Route::get('/', 'HomeController@index');
-Route::redirect('/home', '/', 301);
 
 // PromocodeController:
 Route::match(['get', 'post'], '/pcode/add','PromocodeController@view_agregar')->name("addcode");
@@ -17,5 +16,3 @@ Route::match(['get', 'post'], '/shop/cart','ShopController@view_shop_cart')->nam
 // ProductController:
 Route::delete('products', 'ProductController@destroy')->name("products.del");
 Route::resource('products', 'ProductController')->except(['destroy']);
-
-
