@@ -27,7 +27,9 @@
                                         <th scope="col">Name</th>
                                         <th scope="col">Value</th>
                                         <th scope="col">Detail</th>
+                                        @role('super-admin')
                                         <th scope="col">Delete</th>
+                                        @endrole
                                         <th scope="col"></th>
                                     </tr>
                                     </thead>
@@ -40,6 +42,7 @@
                                             <td><b>{{ $fila->name }}</b></td>
                                             <td>{{ $fila->value }}</td>
                                             <td>{{ $fila->detail }}</td>
+                                            @role('super-admin')
                                             <td>
                                                 <div class="form-check">
                                                     <input class="form-check-input position-static" type="checkbox"
@@ -47,6 +50,8 @@
                                                            form="delete_form" aria-label="...">
                                                 </div>
                                             </td>
+                                            @endrole
+                                            @can('update product')
                                             <td>
                                                 <!-- Button trigger modal modify -->
                                                 <button type="button" class="btn btn-primary" data-toggle="modal"
@@ -54,6 +59,7 @@
                                                     Modify
                                                 </button>
                                             </td>
+                                            @endcan
                                         </tr>
 
                                         <!-- Modal Modify -->
@@ -122,8 +128,9 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_Add">
                     Add
                 </button>
+                @role('super-admin')
                 <button type="submit" class="btn btn-primary" form="delete_form">Delete</button>
-
+                @endrole
                 <!-- Modal Add -->
                 <div class="modal fade" id="modal_Add" tabindex="-1" role="dialog"
                      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

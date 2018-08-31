@@ -32,11 +32,13 @@
             {{-- Usuario: --}}
             @else
                 <p class="lead text-muted"> We are happy to have you back! Have a good stay on our page.</p>
-
+                @role('super-admin')
                 <a href="{{ route('addcode') }}" class="btn btn-outline-primary btn-lg">New Code</a>
-                <a href="{{ route('checkcode') }}" class="btn btn-outline-primary btn-lg">Check Code</a>
+                @endrole
+                @hasanyrole('super-admin|moderator|editor')
                 <a href="{{ route('codelist') }}" class="btn btn-outline-primary btn-lg">Code List</a>
-                <br>
+                @endhasanyrole
+                <a href="{{ route('checkcode') }}" class="btn btn-outline-primary btn-lg">Check Code</a>
                 <a href="{{ route('shopcart') }}" class="btn btn-outline-primary btn-lg">Shop Cart</a>
                 <a href="{{ route('products.index') }}" class="btn btn-outline-primary btn-lg">Products</a>
             @endif

@@ -74,7 +74,6 @@ class RolesAndPermissions extends Seeder
 
         // CLIENTE
         $role = Role::create(['name' => 'cliente']);
-        $role->givePermissionTo('read promocodes');
         $role->givePermissionTo('read products');
         $role->givePermissionTo('create cart');
         $role->givePermissionTo('read carts');
