@@ -1,5 +1,20 @@
 /* estilos.css */
 
+/* Usando 'css variables' para gradientes de colores */
+:root {
+    /* Gradiente de grises */
+    --grey-color-1: #606870;
+    --grey-color-2: #6C757D;
+    --grey-color-3: #606870;
+    --grey-gradient: linear-gradient(to right, var(--grey-color-1), var(--grey-color-2), var(--grey-color-1));
+
+    /* Gradiente de tonos cálidos */
+    --warm-color-1: #F6CA1D;
+    --warm-color-2: #EF3708;
+    --warm-color-3: #B51E31;
+    --warm-gradient: linear-gradient(to right, var(--warm-color-1), var(--warm-color-2), var(--warm-color-3));
+}
+
 html {
     position: relative;
     min-height: 100%;
@@ -9,12 +24,11 @@ body {
     margin-bottom: 60px;
 }
 
-/*
+
 .navbar {
-    background: linear-gradient(to right, #F6CA1D, #EF3708, #B51E31);
+    background-image: var(--grey-gradient);
     border-color: transparent;
 }
-*/
 
 #main {
     padding-bottom: 60px;
@@ -25,11 +39,9 @@ body {
     bottom: 0;
     width: 100%;
     height: 65px;
-    /*
-    background: linear-gradient(to right, #F6CA1D, #EF3708, #B51E31);
+    background-image: var(--grey-gradient);
     border-color: transparent;
     color: white;
-    */
 }
 
 /* Ajustantando para alinear las listas con los inputs en vista 'Shop cart') */

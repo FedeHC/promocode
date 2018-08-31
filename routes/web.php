@@ -4,7 +4,6 @@ Auth::routes();
 
 // HomeController:
 Route::get('/', 'HomeController@index');
-Route::redirect('/home', '/', 301);
 
 // PromocodeController:
 Route::group(['middleware' => ['role:super-admin'] ], function(){
@@ -27,5 +26,3 @@ Route::group(['middleware' => ['permission:delete product']], function () {
 });
 
 Route::resource('products', 'ProductController')->except(['destroy']);
-
-
