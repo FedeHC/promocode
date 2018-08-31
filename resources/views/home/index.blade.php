@@ -25,8 +25,8 @@
                 <p class="lead text-muted"> Register or Log in if you want to get a Promocodes!</p>
                 <p class="lead text-muted"> Go ahead, it's free! </p>
 
-                <a href="{{ route('login') }}" class="btn btn-outline-primary btn-lg">Log in</a>
-                <a href="{{ route('register') }}" class="btn btn-outline-success btn-lg">Register</a>
+                <a href="{{ route('login') }}" class="btn btn-outline-success btn-lg">Log in</a>
+                <a href="{{ route('register') }}" class="btn btn-outline-primary btn-lg">Register</a>
 
 
             {{-- Usuario: --}}

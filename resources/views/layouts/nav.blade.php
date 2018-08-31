@@ -3,7 +3,7 @@
 
         {{-- El logo copado de nuestra app ;) --}}
         <a class="navbar-brand" href="{{ url('/') }}">
-            <img src="{{ asset('imagenes/logo.png') }}" width="100"/>
+            <img src="{{ asset('imagenes/logo-1.png') }}" width="100"/>
         </a>
 
         {{-- El botón (si la ventana o navegador se achica) --}}

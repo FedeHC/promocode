@@ -14,7 +14,7 @@
     <title>{{ config('app.name', 'PromoCODE') }} @yield('title')</title>
 
     {{-- Icono de pestaña --}}
-    <link rel="shortcut icon" href="{{ asset('favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('favicon-1.png') }}">
 
     {{-- Scripts --}}
     <script src="{{ asset('js/app.js') }}" defer></script>
