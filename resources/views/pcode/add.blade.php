@@ -10,36 +10,50 @@
 
                 <div class="card">
                     <div class="card-header">
-                        {{ __('Generate code:') }}
+                        New code:
                     </div>
 
                     <div class="card-body">
                         <div class="form-group row mb-0">
                             <div class="col-sm offset-md">
-                                <h4>Select the desired discount. By default the value is 20%</h4>
 
                                 {{-- Formulario con las opciones de descuento --}}
                                 <form method="post">
                                     @csrf
 
-                                    <br>
-                                    <input type="radio" name="discount" value="20disc" checked>20% Off
-                                    <input type="radio" name="discount" value="30disc">30% Off
-                                    <input type="radio" name="discount" value="40disc">40% Off
-                                    <br>
-                                   
-                                    @if (isset($code))
-                                        <div class="form-inline">
-                                            <label for="code">Your promocode is :  </label>  
-                                            <input type="text" class="form-control" name="code" value="{{ $code }}"
-                                                   readonly>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label>Select the desired discount for your
+                                                new {{ config('app.name', 'code') }}:</label>
                                         </div>
-                                        <br>
-                                    @endif
 
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __("Generate promocode") }}
-                                    </button>
+                                        <div class="col-lg-4">
+                                            <div class="input-group">
+                                                <select name="discount" title="Choose any discount available."
+                                                        class="custom-select" required>
+                                                    <option value="20">20% Off</option>
+                                                    <option value="30">30% Off</option>
+                                                    <option value="40">40% Off</option>
+                                                </select>
+
+                                                <button type="submit"
+                                                        class="btn btn-success">{{ __("Generate!") }}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if (isset($code))
+                                        <div class="row">
+                                            <div class="col-sm-4 offset-sm-4 text-center">
+                                                <br>
+                                                <label for="code"><b>Your new {{ config('app.name', 'code') }} is: </b></label>
+                                                <input type="text" class="form-control form-inline fondo-code-lg"
+                                                       name="code"
+                                                       value="{{ $code }}"
+                                                       title="Copy this new {{ config('app.name', 'code') }}!" readonly>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </form>
 
                                 <br>

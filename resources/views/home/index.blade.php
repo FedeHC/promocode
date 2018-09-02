@@ -43,7 +43,7 @@
 
                 <a href="{{ route('checkcode') }}" class="btn btn-outline-success btn-lg">Check Code</a>
                 <a href="{{ route('shopcart') }}" class="btn btn-outline-primary btn-lg">Shop Cart</a>
-                <a href="{{ route('products.index') }}" class="btn btn-outline-primary btn-lg">Products</a>
+                <a href="{{ route('products.index') }}" class="btn btn-outline-primary btn-lg">Product List</a>
             @endif
 
         </section>

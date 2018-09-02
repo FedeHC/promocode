@@ -11,7 +11,7 @@
                 {{-- SELECCION DE PRODUCTOS --}}
                 <div class="card">
                     <a id="products"></a>
-                    <div class="card-header">{{ __('Buy what you want:') }}</div>
+                    <div class="card-header">Products:</div>
                     <div class="card-body">
                         @include('shop.products')
                     </div>
@@ -22,7 +22,7 @@
                 {{-- CARRO DE COMPRAS --}}
                 <div class="card">
                     <a id="cart"></a>
-                    <div class="card-header">{{ __('Your current cart:') }}</div>
+                    <div class="card-header">Shop cart:</div>
                     <div class="card-body table-responsive">
                         @include('shop.cart')
                     </div>

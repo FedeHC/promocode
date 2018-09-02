@@ -10,38 +10,61 @@
 
                 <div class="card">
                     <div class="card-header">
-                        {{ __('Code list:') }}
+                        Code list:
                     </div>
 
                     <div class="card-body">
                         <div class="form-group row mb-0">
                             <div class="col-sm offset-md">
 
-                                <table class="table table-striped table-borderless table-sm">
-                                    <thead>
-                                    <tr class="table-secondary">
-                                        <th scope="col">#</th>
-                                        <th scope="col">Code</th>
-                                        <th scope="col">Expires at</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-                                    @foreach ($la_base_de_datos as $fila)
-                                        <tr>
-                                            <td>{{ $fila->id }}</td>
-                                            <td><b>{{ $fila->code }}</b></td>
-
-                                            @if($fila->expires_at == "")
-                                                <td><i>Sin vencimiento</i></td>
-                                            @else
-                                                <td>{{ $fila->expires_at }}</td>
-                                            @endif
-                                        
+                                @if(isset($promocodes) && isset($hoy))
+                                    <table class="table table-striped table-borderless table-sm">
+                                        <thead>
+                                        <tr class="table-secondary">
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Codes</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Discount</th>
+                                            <th scope="col">Expires</th>
                                         </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+
+                                        <tbody>
+                                        @foreach ($promocodes as $fila)
+                                            <tr>
+                                                {{-- Id --}}
+                                                <td>{{ $fila->id }}</td>
+
+                                                {{-- Codes--}}
+                                                <td><span class="fondo-code-sm">{{ $fila->code }}</span></td>
+
+                                                {{-- Status --}}
+                                                <td>
+                                                    @if(new DateTime($fila->expires_at) <= $hoy)
+                                                        <span class="badge badge-warning">Expired</span>
+                                                    @elseif($fila->promocode_id == $fila->id)
+                                                        <span class="badge badge-secondary">Used</span>
+                                                    @else
+                                                        <span class="badge badge-success">Available</span>
+                                                    @endif
+                                                </td>
+
+                                                {{-- Discount --}}
+                                                <td>{{ $fila->reward }}<span class="small">%</span></td>
+
+                                                {{-- Expiration --}}
+                                                @if($fila->expires_at == "")
+                                                    <i>No expiration date</i>
+                                                @else
+                                                    <td>{{ $fila->expires_at }}</td>
+                                                @endif
+
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                @endif
+
                                 <br>
                             </div>
                         </div>

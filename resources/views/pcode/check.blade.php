@@ -10,28 +10,44 @@
 
                 <div class="card">
                     <div class="card-header">
-                        {{ __('Check code:') }}
+                        Check code:
                     </div>
 
                     <div class="card-body">
                         <div class="form-group row mb-0">
                             <div class="col-sm offset-md">
 
-                                {{-- Formulario para chequear Promocodes: --}}
+                                {{-- FORMULARIO --}}
                                 <form method="post">
                                     @csrf
-
-                                    <div class="input-group">
-                                        <input type="text" name="code" class="form-control"
-                                               value="@if(isset($code)){{ $code }}@endif"/>
-                                        <button type="submit" class="btn btn-primary">Check!</button>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="input-group has-warning">
+                                                <input type="text" name="promocode" class="form-control text-left"
+                                                       value="@if(isset($code)){{ $code }}@endif"
+                                                       title="Insert here the {{ config('app.name', 'code') }} to check."
+                                                       required/>
+                                                <button type="submit" class="btn btn-success">Check!</button>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    @if(isset($mensaje))
-                                        <label><b><i>{{ $mensaje }}</i></b></label>
+                                    {{-- MENSAJE --}}
+                                    @if(isset($code) && isset($status))
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                @if($status === true)
+                                                    <h1 class="badge badge-success mensaje-code">↪️ This code is valid</h1>
+                                                @elseif($status === false)
+                                                    <h1 class="badge badge-warning mensaje-code">↪️ This code has expired.</h1>
+                                                @elseif($status === 'invalid')
+                                                    <h1 class="badge badge-danger mensaje-code">↪️ Invalid code.</h1>
+                                                @endif
+                                            </div>
+                                        </div>
                                     @endif
-                                </form>
 
+                                </form>
                                 <br>
 
                             </div>

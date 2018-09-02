@@ -9,7 +9,8 @@
             <label>Product & Price:</label>
             <div class="form-group">
 
-                <select name="selected_product_id" class="custom-select" required>
+                <select name="selected_product_id" title="Choose any of the available products." class="custom-select"
+                        required>
                     @if(isset($products))
                         @foreach($products as $product)
                             <option value="{{ $product->id }}">
@@ -35,7 +36,8 @@
             <label>Quantity:</label>
             <div class="form-group">
                 <div class="input-group">
-                    <input type="number" class="form-control text-center" name="quantity" value="1" step="1" min="1" max="100" />
+                    <input type="number" title="Select the quantity to buy." class="form-control text-center"
+                           name="quantity" value="1" step="1" min="1" max="100"/>
                 </div>
             </div>
         </div>
@@ -52,7 +54,7 @@
             <label>Add:</label>
             <div class="form-group">
                 <div class="input-group justify-content-center">
-                    <input type="submit" name="agregar" class="btn btn-block btn-outline-primary" value="Buy!" />
+                    <input type="submit" name="agregar" class="btn btn-block btn-primary" value="Buy!"/>
                 </div>
             </div>
         </div>

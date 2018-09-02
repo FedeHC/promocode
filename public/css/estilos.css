@@ -33,16 +33,6 @@ body {
     padding-bottom: 60px;
 }
 
-.fondo-code {
-    display: inline;
-    background-color: black;
-    color: white;
-    padding: 1px;
-    font-family: Arial, sans-serif;
-    font-weight: bolder;
-    text-transform: uppercase;
-}
-
 .footer {
     position: absolute;
     bottom: 0;
@@ -65,4 +55,44 @@ body {
     color: inherit !important;
     text-decoration: none;
     cursor: text !important;
+}
+
+.btn-circle {
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 11px;
+    line-height: 1;
+    border-radius: 12px;
+}
+
+.fondo-code-lg, .fondo-code-sm {
+    background-color: black !important;
+    color: white !important;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-family: monospaced, sans-serif;
+    font-weight: bolder;
+    font-size: 24px;
+    text-transform: uppercase;
+    user-select: all;
+}
+
+.fondo-code-lg {
+    text-align: center;
+    font-size: 24px;
+}
+
+.fondo-code-sm {
+    font-size: 16px;
+}
+
+.mensaje-code {
+    margin-top: 5px;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: bolder;
 }
